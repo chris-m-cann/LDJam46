@@ -1,0 +1,2 @@
+"caves of gallet tiles": "https://adamatomic.itch.io/cavernas",
+"PlatformerTileset_3": "https://askariot.itch.io/platformer-tileset-3"

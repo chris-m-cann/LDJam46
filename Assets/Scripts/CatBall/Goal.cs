@@ -12,6 +12,7 @@ namespace CatBall
         {
             Debug.Log("Activating Door");
             door.Activate();
+            other.gameObject.SetActive(false);
         }
     }
 }

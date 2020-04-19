@@ -6,11 +6,12 @@ namespace CatBall
 {
     public class Goal : MonoBehaviour
     {
+        [SerializeField] private Door door;
+
         private void OnTriggerEnter2D(Collider2D other)
         {
-            var nextScene = (SceneManager.GetActiveScene().buildIndex + 1) % (SceneManager.sceneCount);
-            Debug.Log($"Loading Scene {nextScene}");
-            SceneManager.LoadScene(nextScene);
+            Debug.Log("Activating Door");
+            door.Activate();
         }
     }
 }

@@ -12,7 +12,8 @@ namespace Util
 
         public static void LoadNextScene()
         {
-            var nextScene = (SceneManager.GetActiveScene().buildIndex + 1) % (SceneManager.sceneCount);
+            Debug.Log($"current scene idx = {SceneManager.GetActiveScene().buildIndex}, out of {SceneManager.sceneCountInBuildSettings}");
+            var nextScene = (SceneManager.GetActiveScene().buildIndex + 1) % (SceneManager.sceneCountInBuildSettings);
             Debug.Log($"Loading Scene {nextScene}");
             SceneManager.LoadScene(nextScene);
         }

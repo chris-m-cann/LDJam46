@@ -30,6 +30,15 @@ namespace CatBall
         public float timeToBackFromMaxSpeedInAir;
         public float maxFallSpeed;
 
+        [Header("Wall Control")]
+        public float wallSlideSpeed;
+        public float wallJumpHeight;
+        public float wallJumpTimeToPeak;
+        public float wallJumpMinLength;
+        public float timeToMaxSpeedOffTheWall;
+        public float timeToBackFromMaxSpeedOffTheWall;
+        public float wallJumpCoyoteTime;
+
         [Space]
         [Tooltip("Layers we consider as 'ground'")]
         public LayerMask groundMask;

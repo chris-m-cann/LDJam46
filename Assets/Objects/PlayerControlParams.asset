@@ -22,8 +22,11 @@ MonoBehaviour:
   timeToMaxSpeed: 0.1
   timeBackFromMaxToRest: 0.2
   timeToMaxSpeedInAir: 0.1
-  timeToBackFromMaxSpeedInAir: 0.2
+  timeToBackFromMaxSpeedInAir: 0.1
   maxFallSpeed: 15
+  wallSlideSpeed: 1
+  wallJumpMinDistance: 3
+  wallJumpControlSmoothing: 5
   groundMask:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 256

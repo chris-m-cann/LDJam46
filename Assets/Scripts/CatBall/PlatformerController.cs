@@ -22,6 +22,8 @@ namespace CatBall
         private float _gravityScaleUp = 1f;
         private float _gravityScaleDown = 1f;
         private float _vyzero;
+        private float _wallJumpGravityScale = 1f;
+        private Vector2 _wallJumpVzero;
 
         private float _lastHorizontal;
         private float _horizontal;
@@ -33,18 +35,24 @@ namespace CatBall
         private float tweenTime;
 
 
+
         private bool _jumpPressed;
         private bool _jumpReleased;
         private float _jumpStartTime;
         private bool _isGrounded;
         private bool _isOnLeftWall;
         private bool _isOnRightWall;
+        private bool _wasOnAWall;
         private float _lastPress;
         private float _lastGrounded;
+        private float _lastOnAWall;
+
         private float _groundedAcceleration;
         private float _groundedDeceleration;
         private float _inAirAcceleration;
         private float _inAirDeceleration;
+        private float _offTheWallAcceleration;
+        private float _offTheWallDeceleration;
 
 
         private Rigidbody2D _rb;
@@ -80,8 +88,16 @@ namespace CatBall
             var gdown = - 2 * param.maxJumpHeight / (param.timeBackDown * param.timeBackDown);
             _gravityScaleDown = gdown / Physics2D.gravity.y;
 
+            var wallJumpVyzero = 2 * param.wallJumpHeight / param.wallJumpTimeToPeak;
+            var wallJumpTimeToPeak = 2 * param.wallJumpHeight / wallJumpVyzero;
+            var gwall = - 2 * param.wallJumpHeight / (wallJumpTimeToPeak * wallJumpTimeToPeak);
+            _wallJumpGravityScale = gwall / Physics2D.gravity.y;
+            var wallJumpxzero = param.wallJumpMinLength / param.timeToBackFromMaxSpeedOffTheWall;
+            _wallJumpVzero = new Vector2(wallJumpxzero, wallJumpVyzero);
+
             _lastGrounded = float.MinValue;
             _lastPress = float.MinValue;
+            _lastGrounded = float.MinValue;
 
             _maxSpeed = param.maxJumpWidth / (param.timeToPeak + param.timeBackDown);
 
@@ -91,6 +107,8 @@ namespace CatBall
             _inAirAcceleration = _maxSpeed / param.timeToMaxSpeedInAir;
             _inAirDeceleration = _maxSpeed / param.timeToBackFromMaxSpeedInAir;
 
+            _offTheWallAcceleration = _maxSpeed / param.timeToMaxSpeedOffTheWall;
+            _offTheWallDeceleration = _maxSpeed / param.timeToBackFromMaxSpeedOffTheWall;
         }
 
         private void Update()
@@ -151,47 +169,94 @@ namespace CatBall
             DetectWhatImTouching();
             if (_isGrounded) _lastGrounded = Time.time;
 
+            var onAWall = !_isGrounded && (_isOnLeftWall || _isOnRightWall);
+
+            if (onAWall)
+            {
+                _lastOnAWall = Time.time;
+                _wasOnAWall = true;
+            }
+
+            if (_isGrounded) _wasOnAWall = false;
+
 
             var vx = HorizontalMovement();
-            var vy =  HandleJumpPress();
-
 
             // these stop the player ticking on walls when pressing in to them
             if (_isOnRightWall && vx > 0) vx = _rb.velocity.x;
             if (_isOnLeftWall && vx < 0) vx = _rb.velocity.x;
 
+            var newVelocity =  HandleJumpPress(vx);
 
-            vy = Mathf.Max(vy, -param.maxFallSpeed);
-            _rb.velocity = new Vector2(vx, vy);
 
+
+
+            newVelocity.y = Mathf.Max(newVelocity.y, -param.maxFallSpeed);
+
+            _rb.velocity = newVelocity;
             HandleJumpButtonRelease();
 
 
             if (_rb.velocity.y < 0)
             {
-                _rb.gravityScale = _gravityScaleDown;
+                if (!onAWall)
+                {
+                    _rb.gravityScale = _gravityScaleDown;
+                    _wasOnAWall = false;
+                }
+                else // wall sliding
+                {
+                    _rb.gravityScale = 0;
+                    _rb.velocity = new Vector2(_rb.velocity.x, -param.wallSlideSpeed);
+                }
             }
+
+
 
         }
 
-        private float HandleJumpPress()
+        private Vector2 HandleJumpPress(float xvel)
         {
             var yvel = _rb.velocity.y;
 
-            var inGraceTime = _isGrounded && (Time.time - _lastPress) < param.graceTime;
+
+            var inGraceTime = (Time.time - _lastPress) < param.graceTime;
+            var inGroundedGraceTime = _isGrounded && inGraceTime;
             var inCoyoteTime = _jumpPressed && (Time.time - _lastGrounded) < param.coyoteTime;
-            if (inGraceTime || inCoyoteTime)
+            var inWallJumpCoyoteTime = _jumpPressed && (Time.time - _lastOnAWall) < param.wallJumpCoyoteTime;
+
+
+            if (!_isGrounded && _isOnLeftWall && (inGraceTime || inWallJumpCoyoteTime))
             {
-                //Debug.Log($"jumping because inGraceTime={inGraceTime}, inCoyoteTime={inCoyoteTime}");
-                _rb.gravityScale = _gravityScaleUp;
+                _rb.gravityScale = _wallJumpGravityScale;
                 _jumpStartTime = Time.time;
                 _lastPress = 0;
-                yvel = _vyzero;
+                yvel = _wallJumpVzero.y;
+                xvel = _wallJumpVzero.x;
+            }
+            else if (!_isGrounded && _isOnRightWall && (inGraceTime || inWallJumpCoyoteTime))
+            {
+                _rb.gravityScale = _wallJumpGravityScale;
+                _jumpStartTime = Time.time;
+                _lastPress = 0;
+                yvel = _wallJumpVzero.y;
+                xvel = -_wallJumpVzero.x;
+            }
+            else
+            {
+                if (inGroundedGraceTime || inCoyoteTime)
+                {
+                    //Debug.Log($"jumping because inGraceTime={inGraceTime}, inCoyoteTime={inCoyoteTime}");
+                    _rb.gravityScale = _gravityScaleUp;
+                    _jumpStartTime = Time.time;
+                    _lastPress = 0;
+                    yvel = _vyzero;
+                }
             }
 
             _jumpPressed = false;
 
-            return yvel;
+            return new Vector2(xvel, yvel);
         }
 
         private void HandleJumpButtonRelease()
@@ -260,6 +325,11 @@ namespace CatBall
             {
                 acceleration = _groundedAcceleration;
                 deceleration = _groundedDeceleration;
+            }
+            else if (_wasOnAWall)
+            {
+                acceleration = _offTheWallAcceleration;
+                deceleration = _offTheWallDeceleration;
             }
             else
             {

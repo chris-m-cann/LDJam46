@@ -7,7 +7,7 @@ namespace Util
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            SceneManagerEx.LoadNextScene();
+            if (other.gameObject.CompareTag("Player")) SceneManagerEx.LoadNextScene();
         }
     }
 }

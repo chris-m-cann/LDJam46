@@ -1,9 +1,26 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
+using Util;
 
 namespace CatBall
 {
     public class PlatformerController : MonoBehaviour
     {
+        public bool IsGrounded
+        {
+            get => _isGrounded;
+        }
+
+        public bool IsOnAWall
+        {
+            get
+            {
+                if (_isGrounded) return false;
+                var h = Input.GetAxis("Horizontal");
+                return (h < 0 && _isOnLeftWall) || (h > 0 && _isOnRightWall);
+            }
+        }
+
         [SerializeField] private PlatformerControlParameters param;
 
         [SerializeField] private Transform groundedPos;
@@ -18,6 +35,11 @@ namespace CatBall
         [SerializeField] private Transform leftWallCheckPos;
         [SerializeField] private float leftWallCheckWidth = .2f;
         [SerializeField] private float leftWallCheckHeight = .2f;
+
+        // 0 - from ground
+        // 1 - from wall
+        // can you tell im running out of time :)
+        [SerializeField] private IntUnityEvent onJump;
 
         private float _gravityScaleUp = 1f;
         private float _gravityScaleDown = 1f;
@@ -56,6 +78,7 @@ namespace CatBall
 
 
         private Rigidbody2D _rb;
+
 
         private void Awake()
         {
@@ -182,9 +205,19 @@ namespace CatBall
 
             var vx = HorizontalMovement();
 
-            // these stop the player ticking on walls when pressing in to them
-            if (_isOnRightWall && vx > 0) vx = _rb.velocity.x;
-            if (_isOnLeftWall && vx < 0) vx = _rb.velocity.x;
+            // these stop the player sticking on walls when pressing in to them
+            var pressingIntoWall = false;
+            if (_isOnRightWall && vx > 0)
+            {
+                vx = _rb.velocity.x;
+                pressingIntoWall = true;
+            }
+
+            if (_isOnLeftWall && vx < 0)
+            {
+                vx = _rb.velocity.x;
+                pressingIntoWall = true;
+            }
 
             var newVelocity =  HandleJumpPress(vx);
 
@@ -199,7 +232,7 @@ namespace CatBall
 
             if (_rb.velocity.y < 0)
             {
-                if (!onAWall)
+                if (!(onAWall && pressingIntoWall))
                 {
                     _rb.gravityScale = _gravityScaleDown;
                     _wasOnAWall = false;
@@ -233,6 +266,8 @@ namespace CatBall
                 _lastPress = 0;
                 yvel = _wallJumpVzero.y;
                 xvel = _wallJumpVzero.x;
+
+                onJump.Invoke(1);
             }
             else if (!_isGrounded && _isOnRightWall && (inGraceTime || inWallJumpCoyoteTime))
             {
@@ -241,6 +276,8 @@ namespace CatBall
                 _lastPress = 0;
                 yvel = _wallJumpVzero.y;
                 xvel = -_wallJumpVzero.x;
+
+                onJump.Invoke(1);
             }
             else
             {
@@ -251,6 +288,8 @@ namespace CatBall
                     _jumpStartTime = Time.time;
                     _lastPress = 0;
                     yvel = _vyzero;
+
+                    onJump.Invoke(0);
                 }
             }
 

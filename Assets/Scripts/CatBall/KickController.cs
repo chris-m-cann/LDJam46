@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using Util;
 
 namespace CatBall
@@ -26,6 +27,8 @@ namespace CatBall
         [Space] [SerializeField] private float maxKickVelocity = 10f;
         [SerializeField] private float maxKickTime = 2f;
         [SerializeField] private float maxTrailLength = 2f;
+
+        [SerializeField] private UnityEvent onKick;
 
 
         private bool _canBoot;
@@ -161,6 +164,8 @@ namespace CatBall
             // var dir = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), transform.position.z);
             // if (invertDirection) dir *= -1;
 
+            onKick.Invoke();
+
             Debug.DrawRay(transform.position, -dir.normalized * 2, Color.red, 1f);
 
             var vToAdd = Mathf.Lerp(minKickVelocity, maxKickVelocity, velocityScale);
@@ -223,9 +228,14 @@ namespace CatBall
             }
             else
             {
+                // var pos = cam.ScreenToWorldPoint(Input.mousePosition);
+                // pos.z = transform.position.z;
+                // dir = pos - _mousePosOnEntryWorldPos;
+                // dir.Normalize();
+
                 var pos = cam.ScreenToWorldPoint(Input.mousePosition);
                 pos.z = transform.position.z;
-                dir = pos - _mousePosOnEntryWorldPos;
+                dir = pos - transform.position;
                 dir.Normalize();
             }
 

@@ -1,2 +1,12 @@
 "caves of gallet tiles": "https://adamatomic.itch.io/cavernas",
 "PlatformerTileset_3": "https://askariot.itch.io/platformer-tileset-3"
+"16x16+ Robot Tileset": "https://0x72.itch.io/16x16-robot-tileset"
+
+
+
+"OmegaPixelArt": "https://omegaosg.itch.io/gameboy-sfx-pack"
+"DOS88": "https://dos88.itch.io/dos-88-music-library"
+"chiptunistchippy": "https://chiptunistchippy.itch.io/chippy-music-pack"
+"0x72": "https://0x72.itch.io/16x16-industrial-tileset"
+"Void" :"https://arcade.itch.io/awkward"
+"lightUP": "https://julianoferreiradelima.itch.io/gamepads-assets-pixelart"

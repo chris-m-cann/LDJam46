@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6296219554730228112}
   - component: {fileID: 6296219554730228113}
   - component: {fileID: 6296219554730228115}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 6c9ca1573810a3d4da29248b2e15fb66, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7216981, g: 0.8526637, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -134,7 +134,7 @@ MonoBehaviour:
   - {x: -0.5, y: 1, z: 0}
   m_ShapePathHash: -1133671179
   m_Mesh: {fileID: 0}
-  m_InstanceId: -124116
+  m_InstanceId: 65462
 --- !u!1 &6296219554791391998
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 6296219554791391987}
   - component: {fileID: 6296219554791391984}
   - component: {fileID: 6296219554791391986}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 6c9ca1573810a3d4da29248b2e15fb66, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7216981, g: 0.8526637, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 0
@@ -269,7 +269,7 @@ MonoBehaviour:
   - {x: -0.5, y: 1, z: 0}
   m_ShapePathHash: -1420194155
   m_Mesh: {fileID: 0}
-  m_InstanceId: -124314
+  m_InstanceId: 65472
 --- !u!1 &6296219555060808204
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 6296219555060808207}
   - component: {fileID: 6296219555060808206}
   - component: {fileID: 6296219555060808193}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}

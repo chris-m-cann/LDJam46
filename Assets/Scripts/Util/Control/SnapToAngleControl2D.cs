@@ -21,6 +21,8 @@ namespace Util.Control
         {
             var dir = delegateControl.GetDirection(from);
 
+            if (dir == Vector2.zero) return dir;
+
             var angle = Vector3.Angle(Vector3.up, dir);
 
             int eighths = (int) (angle / 45);

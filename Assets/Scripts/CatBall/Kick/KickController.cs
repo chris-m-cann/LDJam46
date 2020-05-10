@@ -64,38 +64,20 @@ namespace CatBall
         {
             if (!_canBoot) return;
 
-
-            // if (_kickButtonDownTime < 0 && KickButtonIsDown())
-            // {
-            //     _kickButtonDownTime = Time.unscaledTime;
-            // }
+            if (WasKickCancelPressed()) CantBoot();
 
 
-            var dir = GetInputDirection();
-
-
-            // get the length of the trail to put on screen
-            // float timePressed = 0;
-            // if (_kickButtonDownTime > 0)
-            // {
-            //     timePressed = Time.unscaledTime - _kickButtonDownTime;
-            // }
-
-            // in range 0-1: how much of the kick we have charged
-            // todo(chris) consider using a different algorithm here to get y for diferent ramp up curves
-            // this is y = mx where m = 1/maxKick, could be y = mx^2 etc
-            // var timeScaler = timePressed / maxKickTime;
+            _kickDir = GetInputDirection();
 
 
             _lines.SetPosition(0, transform.position);
-            var finalPos = transform.position + (maxTrailLength * dir);
+            var finalPos = transform.position + (maxTrailLength * _kickDir);
             _lines.SetPosition(1, finalPos);
 
 
-            if (KickButtonIsDown())
+            if (WasKickButtonPressed())
             {
                 // this will trigger the kick in Fixed Update
-                _kickDir = dir;
                 _kickScale = 1f;
             }
         }
@@ -177,6 +159,7 @@ namespace CatBall
             _ball = other.gameObject;
             _lines.enabled = true;
 
+            _kickDir = GetInitialKickDir();
             _canBoot = true;
         }
 
@@ -191,14 +174,35 @@ namespace CatBall
             controls.kick.Handled();
         }
 
-        private bool KickButtonIsDown()
+        private Vector3 GetInitialKickDir()
+        {
+            var vec = _ball.transform.position - transform.position;
+            vec.Normalize();
+
+            Debug.Log($"Initial Kick Direction = {vec}");
+
+            return vec;
+        }
+
+        private bool WasKickButtonPressed()
         {
             return controls.kick.WasPressed();
         }
 
         private Vector3 GetInputDirection()
         {
-            return controls.kickAim.GetDirection(transform);
+            var dir = controls.kickAim.GetDirection(transform);
+
+            Debug.Log($"Kick Direction = {dir}");
+
+
+            if (dir == Vector2.zero) return _kickDir;
+            else return dir;
+        }
+
+        private bool WasKickCancelPressed()
+        {
+            return controls.kickCancel.WasPressed();
         }
     }
 }

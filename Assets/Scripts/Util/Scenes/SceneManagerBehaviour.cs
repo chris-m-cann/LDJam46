@@ -11,6 +11,7 @@ namespace Util
         [SerializeField] private bool loadAdditiveSceneOnAwake = true;
 
         private int _currentScene = 2;
+        private bool _reloadOngoing = false;
 
         private void Awake()
         {
@@ -25,6 +26,8 @@ namespace Util
             {
                 _currentScene = SceneManager.GetSceneAt(1).buildIndex;
             }
+
+            StartCoroutine(SetActiveScene(_currentScene));
         }
 
         public void LoadScene(string sceneName)
@@ -43,6 +46,10 @@ namespace Util
 
         private IEnumerator ReplaceScene(int newScene, float sceneLoadDelay)
         {
+            // break out early if already loading
+            if (_reloadOngoing) yield break;
+
+            _reloadOngoing = true;
             yield return new WaitForSeconds(sceneLoadDelay);
 
             Debug.Log($"unloading scene {_currentScene}");
@@ -62,6 +69,16 @@ namespace Util
 
             Debug.Log($"calling load scene {_currentScene}");
             SceneManager.LoadScene(_currentScene, LoadSceneMode.Additive);
+            yield return StartCoroutine(SetActiveScene(_currentScene));
+
+            _reloadOngoing = false;
+        }
+
+        private IEnumerator SetActiveScene(int idx)
+        {
+            yield return null;
+            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(_currentScene));
+
         }
     }
 }

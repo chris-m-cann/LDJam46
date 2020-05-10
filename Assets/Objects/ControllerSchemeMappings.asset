@@ -15,19 +15,19 @@ MonoBehaviour:
   bindings:
   - action: 0
     key: 0
-    axis: 6
+    axis: 7
   - action: 4
-    key: 0
-    axis: 9
+    key: 331
+    axis: 0
   - action: 3
     key: 330
     axis: 0
   - action: 6
     key: 0
-    axis: 6
+    axis: 7
   - action: 5
     key: 332
     axis: 0
   - action: 7
-    key: 331
+    key: 334
     axis: 0

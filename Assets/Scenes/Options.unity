@@ -5638,7 +5638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   action: 6
-  axes: 0600000003000000
+  axes: 0700000004000000
   choices: {fileID: 367697578}
 --- !u!114 &1962559507
 MonoBehaviour:
@@ -6548,6 +6548,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7705120278787782343, guid: 3241bd60908799647a9733ec1a3b5171,
+        type: 3}
+      propertyPath: axes.Array.data[0]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7705120278787782343, guid: 3241bd60908799647a9733ec1a3b5171,
+        type: 3}
+      propertyPath: axes.Array.data[1]
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3241bd60908799647a9733ec1a3b5171, type: 3}

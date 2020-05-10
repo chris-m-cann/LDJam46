@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Util;
+using Util.Control;
 
 namespace CatBall
 {

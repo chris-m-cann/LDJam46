@@ -12,17 +12,19 @@ namespace CatBall
         [SerializeField] private UnityEvent onGoal;
 
         private AudioSource _audio;
+        private SceneManagerBehaviour _scenes;
 
         private void Awake()
         {
             _audio = GetComponent<AudioSource>();
+            _scenes = FindObjectOfType<SceneManagerBehaviour>();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                SceneManagerEx.LoadNextScene();
+                _scenes.LoadNextSceneAfter(0f);
                 return;
             }
             if (!other.gameObject.CompareTag("Ball")) return;

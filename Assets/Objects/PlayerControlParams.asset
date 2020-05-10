@@ -20,7 +20,7 @@ MonoBehaviour:
   graceTime: 0.05
   maxJumpWidth: 10
   timeToMaxSpeed: 0.1
-  timeBackFromMaxToRest: 0.2
+  timeBackFromMaxToRest: 0.1
   timeToMaxSpeedInAir: 0.1
   timeToBackFromMaxSpeedInAir: 0.1
   maxFallSpeed: 15

@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   param: {fileID: 11400000, guid: 21a81b25fc992cf44831b529a884f57e, type: 2}
+  controls: {fileID: 11400000, guid: 338ee389e40634a4db5e5e17c1a2a9b0, type: 2}
   groundedPos: {fileID: 1837655524600218903}
   groundedWidth: 0.46
   groundedHeight: 0.06
@@ -214,7 +215,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.028281212, y: -0.07353091}
+  m_Offset: {x: -0.031517982, y: -0.07353091}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -225,7 +226,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5475025, y: 0.80768824}
+  m_Size: {x: 0.51234055, y: 0.80768824}
   m_EdgeRadius: 0
 --- !u!50 &1837655525930373617
 Rigidbody2D:
@@ -298,7 +299,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.44494218
+        value: 0.2793767
         inSlope: -0.2914833
         outSlope: -0.2914833
         tangentMode: 0
@@ -306,14 +307,14 @@ LineRenderer:
         inWeight: 0.33333334
         outWeight: 0.4188334
       - serializedVersion: 3
-        time: 0.55184305
-        value: 0.13467409
-        inSlope: -0.6258172
-        outSlope: -0.6258172
+        time: 0.54306924
+        value: 0.0949402
+        inSlope: -0.3682718
+        outSlope: -0.3682718
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.17653094
-        outWeight: 0.8008798
+        outWeight: 0.33019203
       - serializedVersion: 3
         time: 1
         value: 0
@@ -375,6 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a437c0ce14f45ad9c5fd7aaab49b662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controls: {fileID: 11400000, guid: 338ee389e40634a4db5e5e17c1a2a9b0, type: 2}
   bootzoneDetectionPos: {fileID: 1837655525035034584}
   bootzoneRadius: 1.1
   bootableLayers:
@@ -387,12 +389,12 @@ MonoBehaviour:
   minKickVelocity: 10
   maxKickVelocity: 30
   maxKickTime: 2
-  maxTrailLength: 2
+  maxTrailLength: 1.3
   onKick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 598196546}
-        m_MethodName: PlayKick
+      - m_Target: {fileID: 598196548}
+        m_MethodName: Kick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

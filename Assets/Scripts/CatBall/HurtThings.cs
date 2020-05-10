@@ -7,7 +7,13 @@ namespace CatBall
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            other.GetComponent<IHurtable>()?.Hurt();
+            Debug.Log($"{gameObject.name} hit spikes");
+            var hurtable = other.GetComponent<IHurtable>();
+            if (hurtable != null)
+            {
+                Debug.Log($"{gameObject.name} gets hurt");
+                hurtable.Hurt();
+            }
         }
     }
 }

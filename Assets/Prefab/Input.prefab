@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2060078845954041950
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2060078845954041952}
+  - component: {fileID: 2060078845954041953}
+  - component: {fileID: 1165402658}
+  m_Layer: 0
+  m_Name: Input
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2060078845954041952
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060078845954041950}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 318.60794, y: 184.98248, z: -125.66432}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2060078845954041953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060078845954041950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 762d99ea287645b1aa437b427bb244a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kbSchemeMappings: {fileID: 1165402658}
+  controls: {fileID: 11400000, guid: 338ee389e40634a4db5e5e17c1a2a9b0, type: 2}
+  controllerDetectionWait: 0.5
+  onControllerDetected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1165402658}
+        m_MethodName: SetSchemeMappings
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: d825140106053b948aaf1a64bb295108,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: Util.UI.SchemeMappings, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2060078845954041953}
+        m_MethodName: GenerateControls
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onControllerRemoved:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1165402658}
+        m_MethodName: SetSchemeMappings
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: ba454bbe2b3c0cf4c85b889ffdd908c7,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: Util.UI.SchemeMappings, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2060078845954041953}
+        m_MethodName: GenerateControls
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1165402658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060078845954041950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fc4a6d7e7e94e708e35e8e5d4701bfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mappings: {fileID: 11400000, guid: ba454bbe2b3c0cf4c85b889ffdd908c7, type: 2}

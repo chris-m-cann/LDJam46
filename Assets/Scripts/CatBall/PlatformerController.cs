@@ -16,12 +16,14 @@ namespace CatBall
             get
             {
                 if (_isGrounded) return false;
-                var h = Input.GetAxis("Horizontal");
+                var h = controls.move.GetAxisRaw();
+                // var h = Input.GetAxis("Horizontal");
                 return (h < 0 && _isOnLeftWall) || (h > 0 && _isOnRightWall);
             }
         }
 
         [SerializeField] private PlatformerControlParameters param;
+        [SerializeField] private ControlScheme controls;
 
         [SerializeField] private Transform groundedPos;
         [SerializeField] private float groundedWidth = .2f;
@@ -139,7 +141,8 @@ namespace CatBall
             var lastHorizontal = _horizontal;
             var wasZero = Mathf.Approximately(lastHorizontal, 0f);
 
-            _horizontal = Input.GetAxisRaw("Horizontal");
+            // _horizontal = Input.GetAxisRaw("Horizontal");
+            _horizontal = controls.move.GetAxisRaw();
 
             if (!wasZero && Mathf.Approximately(_horizontal, 0f))
             {
@@ -168,12 +171,15 @@ namespace CatBall
             }
 
 
-            if (Input.GetButtonDown("Jump"))
+            if (controls.jump.WasPressed())
+            // if (Input.GetButtonDown("Jump"))
             {
                 _jumpPressed = true;
                 _lastPress = Time.time;
             }
-            if (Input.GetButtonUp("Jump")) _jumpReleased = true;
+
+            if (controls.jump.WasReleased()) _jumpReleased = true;
+            // if (Input.GetButtonUp("Jump")) _jumpReleased = true;
         }
 
         private void OnDrawGizmosSelected()
@@ -294,6 +300,7 @@ namespace CatBall
             }
 
             _jumpPressed = false;
+            controls.jump.Handled();
 
             return new Vector2(xvel, yvel);
         }

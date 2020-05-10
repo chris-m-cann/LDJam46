@@ -4,6 +4,7 @@ namespace Util
 {
     public static class Tween
     {
+        public delegate float Function(float start, float end, float time);
         public static float Lerp(float start, float end, float time)
         {
             var t = Mathf.Clamp01(time);

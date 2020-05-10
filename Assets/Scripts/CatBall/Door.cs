@@ -19,12 +19,10 @@ namespace CatBall
         {
             if (isOpen)
             {
-                Debug.Log("Setting CloseDoor Trigger");
                 _animator.SetTrigger(CloseDoor);
             }
             else
             {
-                Debug.Log("Setting OpenDoor Trigger");
                 _animator.SetTrigger(OpenDoor);
             }
         }

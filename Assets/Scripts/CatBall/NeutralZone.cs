@@ -14,7 +14,6 @@ namespace CatBall
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log($"{other.gameObject.name} entered the neutral zone");
             if (other.gameObject.CompareTag("Ball"))
             {
                 _ball = other.gameObject;
@@ -25,7 +24,6 @@ namespace CatBall
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            Debug.Log($"{other.gameObject.name} left the neutral zone");
             if (other.gameObject.CompareTag("Ball"))
             {
                 _ball = null;
@@ -42,7 +40,6 @@ namespace CatBall
             var withinRange = Vector3.Distance(transform.position, _ball.transform.position) < snapDistance;
             var slowEnough = _ballRb.velocity.sqrMagnitude < (snapVelocity * snapVelocity);
 
-            Debug.Log($"in range = {withinRange}, slow enough = {slowEnough} distance = {distance}");
             if (withinRange && slowEnough)
             {
                 _ballRb.velocity = Vector2.zero;

@@ -142,8 +142,8 @@ GameObject:
   - component: {fileID: 598196546}
   - component: {fileID: 598196539}
   - component: {fileID: 598196540}
-  - component: {fileID: 598196548}
   - component: {fileID: 1704544120598724079}
+  - component: {fileID: 198449677}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -194,8 +194,8 @@ MonoBehaviour:
   onJump:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 598196548}
-        m_MethodName: Jump
+      - m_Target: {fileID: 198449677}
+        m_MethodName: OnJump
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -396,8 +396,8 @@ MonoBehaviour:
   onKick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 598196548}
-        m_MethodName: Kick
+      - m_Target: {fileID: 198449677}
+        m_MethodName: OnKick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -660,7 +660,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &598196548
+--- !u!114 &1704544120598724079
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -669,9 +669,49 @@ MonoBehaviour:
   m_GameObject: {fileID: 1837655525930373622}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31c05177063147578726387b43d20810, type: 3}
+  m_Script: {fileID: 11500000, guid: f627f1bf66e849ce9b604624018363f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &198449677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837655525930373622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d207fab504a34410b65b48bfdca8ad40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onJump:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 598196546}
+        m_MethodName: PlayJump
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onKick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 598196546}
+        m_MethodName: PlayKick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onLand:
     m_PersistentCalls:
       m_Calls:
@@ -687,15 +727,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1704544120598724079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1837655525930373622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f627f1bf66e849ce9b604624018363f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+      - m_Target: {fileID: 598196546}
+        m_MethodName: PlayLand
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

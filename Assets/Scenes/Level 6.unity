@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -5299,18 +5299,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7695123997fab6146aae85c6d3119a05, type: 3}
---- !u!114 &929723662 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 598196548, guid: 2cee81b40bb85da4b945196a657059ab,
-    type: 3}
-  m_PrefabInstance: {fileID: 1837655524444467661}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31c05177063147578726387b43d20810, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &970010687
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15692,46 +15680,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1837655525930373517, guid: 2cee81b40bb85da4b945196a657059ab,
-        type: 3}
-      propertyPath: onKick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1837655525930373517, guid: 2cee81b40bb85da4b945196a657059ab,
-        type: 3}
-      propertyPath: onKick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1837655525930373517, guid: 2cee81b40bb85da4b945196a657059ab,
-        type: 3}
-      propertyPath: onKick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1837655525930373517, guid: 2cee81b40bb85da4b945196a657059ab,
-        type: 3}
-      propertyPath: onKick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 929723662}
-    - target: {fileID: 1837655525930373517, guid: 2cee81b40bb85da4b945196a657059ab,
-        type: 3}
-      propertyPath: onKick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Kick
-      objectReference: {fileID: 0}
-    - target: {fileID: 1837655525930373517, guid: 2cee81b40bb85da4b945196a657059ab,
-        type: 3}
-      propertyPath: onKick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 1837655525930373616, guid: 2cee81b40bb85da4b945196a657059ab,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: -0.031517982
-      objectReference: {fileID: 0}
-    - target: {fileID: 1837655525930373616, guid: 2cee81b40bb85da4b945196a657059ab,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.51234055
-      objectReference: {fileID: 0}
     - target: {fileID: 1837655525930373618, guid: 2cee81b40bb85da4b945196a657059ab,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15791,11 +15739,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1837655525930373622, guid: 2cee81b40bb85da4b945196a657059ab,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cee81b40bb85da4b945196a657059ab, type: 3}

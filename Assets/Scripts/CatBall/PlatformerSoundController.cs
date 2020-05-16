@@ -20,62 +20,67 @@ namespace CatBall
         public AudioSource source;
         public PlatformerController controller;
 
+        private Rigidbody2D _rigidbody;
+
+        private bool _isPlayingRunning = false;
+        private bool _isPlayingWallSliding = false;
+
         private void Awake()
         {
+            _rigidbody = GetComponent<Rigidbody2D>();
             controller = GetComponent<PlatformerController>();
             source = GetComponent<AudioSource>();
         }
 
-        // private void Update()
-        // {
-        //     if (source.isPlaying)
-        //     {
-        //         if (controller.IsGrounded && Math.Abs(rb.velocity.x) < float.Epsilon)
-        //         {
-        //             source.Pause();
-        //             return;
-        //         }
-        //
-        //         if (controller.IsOnAWall && )
-        //     }
-        //
-        //
-        //     // stop when we stop
-        //     if (source.isPlaying && Math.Abs(rb.velocity.x) < float.Epsilon && !controller.IsOnAWall)
-        //     {
-        //         source.Pause();
-        //         return;
-        //     }
-        //
-        //     // is we arnt playing it and we are grounded and
-        //     if (!source.isPlaying && controller.IsGrounded && Math.Abs(rb.velocity.x) > minSpeed)
-        //     {
-        //         source.clip = footsteps;
-        //         source.Play();
-        //     }
-        //
-        //     if (!source.isPlaying && controller.IsOnAWall && Math.Abs(rb.velocity.y) > minSpeed)
-        //     {
-        //         source.clip = wallslide;
-        //         source.Play();
-        //     }
-        // }
+        private void Update()
+        {
+            if (Mathf.Abs(_rigidbody.velocity.x) > minSpeed &&
+                controller.IsGrounded
+                )
+            {
+                PlayFootsteps();
+            }
+            else if (_rigidbody.velocity.y < 0 &&
+                !controller.IsGrounded &&
+                controller.IsOnAWall)
+            {
+                PlayWallSlide();
+            }
+            else
+            {
+                StopSounds();
+            }
+
+            // // stopped on the ground
+            // if (Mathf.Abs(_rigidbody.velocity.x) < minSpeed && controller.IsGrounded) StopSounds();
+            // // in air
+            // if (!controller.IsGrounded && !controller.IsOnAWall) StopSounds();
+
+        }
 
         public void PlayFootsteps()
         {
-            if (source.clip == footsteps && source.isPlaying) return;
+            if (_isPlayingRunning) return;
             source.clip = footsteps;
             source.Play();
+            _isPlayingRunning = true;
         }
 
         public void PlayWallSlide()
         {
-            if (source.clip == wallslide && source.isPlaying) return;
+            if (_isPlayingWallSliding) return;
             source.clip = wallslide;
             source.Play();
+            _isPlayingWallSliding = true;
         }
 
-        public void StopSounds() => source.Stop();
+        public void StopSounds()
+        {
+            source.Stop();
+            _isPlayingRunning = false;
+            _isPlayingWallSliding = false;
+        }
+
         public void PlayJump() => PlaySound(jump);
         public void PlayLand() => PlaySound(land);
         public void PlayKick() => PlaySound(kick);
@@ -96,55 +101,5 @@ namespace CatBall
 
             return clips[Random.Range(0, clips.Length)];
         }
-
-        // public void ChangeState(IPlayerSoundState state)
-        // {
-        //     throw new NotImplementedException();
-        // }
     }
 }
-
-// interface IPlayerSoundState
-// {
-//     void Update(PlatformerSoundController controller);
-// }
-//
-// class GroundedState : IPlayerSoundState
-// {
-//     public void Update(PlatformerSoundController controller)
-//     {
-//         var stopped = Math.Abs(controller.rb.velocity.x) < controller.minSpeed;
-//
-//         if (controller.source.isPlaying && stopped)
-//         {
-//             controller.source.Pause();
-//         }
-//         else if (!controller.source.isPlaying && !stopped)
-//         {
-//             controller.source.clip = controller.footsteps;
-//             controller.source.Play();
-//         }
-//     }
-// }
-//
-// class InAir : IPlayerSoundState
-// {
-//     public void Update(PlatformerSoundController controller)
-//     {
-//         if (controller.source.isPlaying) controller.source.Pause();
-//
-//         if (controller.controller.IsOnAWall) controller.ChangeState(new OnAWall());
-//     }
-// }
-//
-// internal class OnAWall : IPlayerSoundState
-// {
-//     public void Update(PlatformerSoundController controller)
-//     {
-//         if (!controller.source.isPlaying && Math.Abs(controller.rb.velocity.y) > controller.minSpeed)
-//         {
-//             controller.source.clip = controller.wallslide;
-//             controller.source.Play();
-//         }
-//     }
-// }

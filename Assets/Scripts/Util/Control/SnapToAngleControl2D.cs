@@ -44,8 +44,6 @@ namespace Util.Control
 
             if (dir.x > 0) finalAngle *= -1;
 
-            // Debug.Log($"angle={angle}, eighths={eighths}, last={last}, final={finalAngle}");
-
             return Quaternion.AngleAxis(finalAngle, Vector3.forward) * Vector3.up;
         }
 

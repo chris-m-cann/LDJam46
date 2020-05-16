@@ -1,10 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace CatBall
 {
     public class PlayerAnimation : MonoBehaviour
     {
+        [SerializeField] private UnityEvent onLand;
         private Animator _animator;
         private Rigidbody2D _rb;
         private SpriteRenderer _sprite;
@@ -46,6 +48,11 @@ namespace CatBall
         public void Kick()
         {
             _animator.SetTrigger("Kick");
+        }
+
+        public void Land()
+        {
+            onLand.Invoke();
         }
     }
 }

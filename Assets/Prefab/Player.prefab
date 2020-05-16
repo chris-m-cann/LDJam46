@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 598196539}
   - component: {fileID: 598196540}
   - component: {fileID: 598196548}
+  - component: {fileID: 1704544120598724079}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -188,6 +189,8 @@ MonoBehaviour:
   leftWallCheckPos: {fileID: 1837655524690489581}
   leftWallCheckWidth: 0.05
   leftWallCheckHeight: 0.56
+  postKickDampenPeriod: 0.2
+  slomoFactor: 0.05
   onJump:
     m_PersistentCalls:
       m_Calls:
@@ -211,7 +214,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1837655525930373622}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: dd31d8399f6c19b4cb3946065cd456f5, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -404,6 +407,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1704544120598724079}
+        m_MethodName: Shake
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 4ecbee0a918d228458354c92425b2362,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: Util.ScreenShakeParameters, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onCanKick:
+    m_PersistentCalls:
+      m_Calls: []
+  onCanNotKick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1837655525930373619}
+        m_MethodName: DampenHorizontalInput
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  timeToMoveOut: 0.5
 --- !u!114 &1837655525930373519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -420,7 +453,19 @@ MonoBehaviour:
   sceneLoadDelay: 1
   onDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1704544120598724079}
+        m_MethodName: Shake
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: ced50818baf94ae4ca08afdc9e44b9cd,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: Util.ScreenShakeParameters, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!82 &598196547
 AudioSource:
   m_ObjectHideFlags: 0
@@ -545,7 +590,6 @@ MonoBehaviour:
   minSpeed: 0.5
   source: {fileID: 0}
   controller: {fileID: 0}
-  rb: {fileID: 0}
 --- !u!212 &598196539
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -626,5 +670,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31c05177063147578726387b43d20810, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onLand:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1704544120598724079}
+        m_MethodName: Shake
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 56631c63b45d10b45a6393bb26bffffb,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: Util.ScreenShakeParameters, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1704544120598724079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837655525930373622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f627f1bf66e849ce9b604624018363f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

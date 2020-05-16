@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55e8d4003c224cd8a6b4fa4618a36795, type: 3}
-  m_Name: CachedMouseDirection
+  m_Script: {fileID: 11500000, guid: 3e57c25ab12e4d9e9621b875f8ef8bb9, type: 3}
+  m_Name: PlayerDeathShake
   m_EditorClassIdentifier: 
-  _control: {fileID: 11400000, guid: 0500fc68848eac347bc86156770f432c, type: 2}
+  magnitude: 0.876
+  duration: 0.3

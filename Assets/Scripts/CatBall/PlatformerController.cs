@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
 using Util;
 
@@ -37,6 +38,11 @@ namespace CatBall
         [SerializeField] private Transform leftWallCheckPos;
         [SerializeField] private float leftWallCheckWidth = .2f;
         [SerializeField] private float leftWallCheckHeight = .2f;
+
+        [SerializeField] private float postKickDampenPeriod;
+
+        [SerializeField] private float slomoFactor;
+
 
         // 0 - from ground
         // 1 - from wall
@@ -78,6 +84,7 @@ namespace CatBall
         private float _offTheWallAcceleration;
         private float _offTheWallDeceleration;
 
+        private float _dampingFactor = 1f;
 
         private Rigidbody2D _rb;
 
@@ -141,7 +148,6 @@ namespace CatBall
             var lastHorizontal = _horizontal;
             var wasZero = Mathf.Approximately(lastHorizontal, 0f);
 
-            // _horizontal = Input.GetAxisRaw("Horizontal");
             _horizontal = controls.move.GetAxisRaw();
 
             if (!wasZero && Mathf.Approximately(_horizontal, 0f))
@@ -289,7 +295,6 @@ namespace CatBall
             {
                 if (inGroundedGraceTime || inCoyoteTime)
                 {
-                    //Debug.Log($"jumping because inGraceTime={inGraceTime}, inCoyoteTime={inCoyoteTime}");
                     _rb.gravityScale = _gravityScaleUp;
                     _jumpStartTime = Time.time;
                     _lastPress = 0;
@@ -383,6 +388,8 @@ namespace CatBall
                 deceleration = _inAirDeceleration;
             }
 
+            acceleration *= _dampingFactor;
+
             var vx = _rb.velocity.x;
             vx += _horizontal * acceleration * Time.fixedDeltaTime;
             if (Mathf.Approximately(_horizontal, 0))
@@ -401,61 +408,29 @@ namespace CatBall
 
             vx = Mathf.Clamp(vx, -_maxSpeed, _maxSpeed);
             return vx;
-            // if pressing _horizontal then ease from v to maxSpeed
-            // if not ease from v to 0
-            // var vx = _rb.velocity.x;
-            //
-            // if (_leftPressTime > float.Epsilon)
-            // {
-            //
-            //     tweenTime = Time.time - _leftPressTime;
-            //     tweenTime /= param.timeToMaxSpeed;
-            //     vx = TweenUp(_fromV, -_maxSpeed, tweenTime);
-            // } else if (_rightPressTime > float.Epsilon)
-            // {
-            //     tweenTime = Time.time - _rightPressTime;
-            //     tweenTime /= param.timeToMaxSpeed;
-            //     vx = TweenUp(_fromV, _maxSpeed, tweenTime);
-            // } else if (_horzontalReleasedTime > float.Epsilon)
-            // {
-            //     tweenTime = Time.time - _horzontalReleasedTime;
-            //     tweenTime /= param.timeBackFromMaxToRest;
-            //     vx = TweenDown(_fromV, 0, tweenTime);
-            // }
-            //
-            // return vx;
-
-
-            // var vx = _rb.velocity.x;
-            // vx += _horizontal;
-            // // todo(chris) understand this damping functions
-            // vx *= Mathf.Pow(1 - param.damping, Time.fixedDeltaTime * 10f);
-            // return vx;
         }
 
-        private float TweenUp(float initial, float final, float tweenTime)
+
+        public void DampenHorizontalInput()
         {
-
-            var t = 1 - Mathf.Clamp01(tweenTime);
-            var tweenFactor = 1 - t * t * t;
-            return initial + (final - initial) * tweenFactor;
-
-            //return Mathf.Lerp(initial, final, tweenTime);
-            // var t = Mathf.Clamp01(tweenTime);
-            // var tweenFactor = t * t * t;
-            // return initial + (final - initial) * tweenFactor;
+            // _rb.velocity *= slomoFactor;
+            //
+            // StopAllCoroutines();
+            // StartCoroutine(CoTweenDampening());
         }
-
-        private float TweenDown(float initial, float final, float tweenTime)
+        private IEnumerator CoTweenDampening()
         {
-            // var t = 1 - Mathf.Clamp01(tweenTime);
-            // var tweenFactor = 1 - t * t * t;
-            // return initial + (final - initial) * tweenFactor;
+            var start = Time.time;
+            var end = start + postKickDampenPeriod;
 
-            var t = Mathf.Clamp01(tweenTime);
+            while (Time.time < end)
+            {
+                var t = (Time.time - start) / postKickDampenPeriod;
+                _dampingFactor = Tween.Lerp(0, 1, t);
+                yield return null;
+            }
 
-            var tweenFactor = t * t * t;
-            return initial + (final - initial) * tweenFactor;
+            _dampingFactor = 1f;
         }
     }
 }

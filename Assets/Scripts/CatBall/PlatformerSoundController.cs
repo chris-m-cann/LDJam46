@@ -19,11 +19,9 @@ namespace CatBall
 
         public AudioSource source;
         public PlatformerController controller;
-        public Rigidbody2D rb;
 
         private void Awake()
         {
-            rb = GetComponent<Rigidbody2D>();
             controller = GetComponent<PlatformerController>();
             source = GetComponent<AudioSource>();
         }

@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfee30625c7a408d8480b9a62ba63407, type: 3}
-  m_Name: KickButton
+  m_Script: {fileID: 11500000, guid: 3e57c25ab12e4d9e9621b875f8ef8bb9, type: 3}
+  m_Name: KickScreenShake
   m_EditorClassIdentifier: 
-  buttonId: Fire1
+  magnitude: 0.35
+  duration: 0.5

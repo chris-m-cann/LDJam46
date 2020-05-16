@@ -52,9 +52,6 @@ namespace Util
             _reloadOngoing = true;
             yield return new WaitForSeconds(sceneLoadDelay);
 
-            Debug.Log($"unloading scene {_currentScene}");
-
-
             AsyncOperation unload = SceneManager.UnloadSceneAsync(_currentScene);
 
             while (!unload.isDone)
@@ -63,11 +60,8 @@ namespace Util
             }
 
 
-            Debug.Log($"unloaded scene {_currentScene}");
-
             _currentScene = newScene;
 
-            Debug.Log($"calling load scene {_currentScene}");
             SceneManager.LoadScene(_currentScene, LoadSceneMode.Additive);
             yield return StartCoroutine(SetActiveScene(_currentScene));
 

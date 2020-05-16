@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using Util;
@@ -32,6 +33,8 @@ namespace CatBall
         [SerializeField] private float maxTrailLength = 2f;
 
         [SerializeField] private UnityEvent onKick;
+        [SerializeField] private UnityEvent onCanKick;
+        [SerializeField] private UnityEvent onCanNotKick;
 
 
         private bool _canBoot;
@@ -161,6 +164,7 @@ namespace CatBall
 
             _kickDir = GetInitialKickDir();
             _canBoot = true;
+            onCanKick.Invoke();
         }
 
 
@@ -169,17 +173,32 @@ namespace CatBall
             _canBoot = false;
 
             _ball = null;
-            Time.timeScale = 1f;
             _lines.enabled = false;
             controls.kick.Handled();
+            onCanNotKick.Invoke();
+            StartCoroutine(TweenTimeScaleOut());
+        }
+
+        [SerializeField] private float timeToMoveOut = .5f;
+        private IEnumerator TweenTimeScaleOut()
+        {
+            var start = Time.time;
+            var end = start + timeToMoveOut;
+
+            while (Time.time < end)
+            {
+                var t = (Time.time - start) / timeToMoveOut;
+                Time.timeScale = Tween.SmoothStop5(reducedTimScale, 1f, t);
+                yield return null;
+            }
+
+            Time.timeScale = 1f;
         }
 
         private Vector3 GetInitialKickDir()
         {
             var vec = _ball.transform.position - transform.position;
             vec.Normalize();
-
-            Debug.Log($"Initial Kick Direction = {vec}");
 
             return vec;
         }
@@ -192,9 +211,6 @@ namespace CatBall
         private Vector3 GetInputDirection()
         {
             var dir = controls.kickAim.GetDirection(transform);
-
-            Debug.Log($"Kick Direction = {dir}");
-
 
             if (dir == Vector2.zero) return _kickDir;
             else return dir;

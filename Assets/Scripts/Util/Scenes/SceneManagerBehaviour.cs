@@ -62,6 +62,9 @@ namespace Util
 
             _currentScene = newScene;
 
+            // just in case the scene was reloaded during a reduced timescale
+            Time.timeScale = 1f;
+
             SceneManager.LoadScene(_currentScene, LoadSceneMode.Additive);
             yield return StartCoroutine(SetActiveScene(_currentScene));
 

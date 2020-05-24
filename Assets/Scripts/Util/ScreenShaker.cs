@@ -49,7 +49,7 @@ namespace Util
 
             var seed = Random.Range(1f, 100f);
 
-            while (end > Time.time)
+            while (end > Time.time && target != null)
             {
                 var t = (Time.time - start) / duration;
                 var m = Tween.SmoothStop3(magnitude, 0, t);

@@ -19,18 +19,18 @@ namespace CatBall
         [SerializeField] private LayerMask bootableLayers;
         [SerializeField] private bool drawGizmos = true;
 
-        [Space]
-        [SerializeField] private bool invertDirection = true;
-
-        [Space]
-        [SerializeField] private float maxKickedSpeed = 30f;
         [Range(0, 1)]
         [SerializeField] private float reducedTimScale = .05f;
+        [SerializeField] private float timeToMoveOut = .5f;
 
-        [Space] [SerializeField] private float minKickVelocity = 10f;
-        [Space] [SerializeField] private float maxKickVelocity = 10f;
-        [SerializeField] private float maxKickTime = 2f;
-        [SerializeField] private float maxTrailLength = 2f;
+        [Space]
+
+        [SerializeField] private float kickSpeed = 30f;
+        [SerializeField] private float trailLength = 1.3f;
+
+        [Space] [SerializeField] private GameObject kickEffect;
+
+        [Space]
 
         [SerializeField] private UnityEvent onKick;
         [SerializeField] private UnityEvent onCanKick;
@@ -40,22 +40,15 @@ namespace CatBall
         private bool _canBoot;
         private bool _ballInZone;
         private GameObject _ball;
-        private Vector3 _mousePosOnEntry;
-        private Vector3 _mousePosOnEntryWorldPos;
-        private float _kickButtonDownTime = -1;
         private Vector3 _kickDir = Vector3.zero;
-        private float _kickScale = -1f;
+        private bool _kickNextUpdate;
 
 
         private LineRenderer _lines;
-        private Camera cam;
 
         private void Awake()
         {
             _lines = GetComponent<LineRenderer>();
-            cam = Camera.main;
-            // in case mid boot-zone
-            Time.timeScale = 1;
         }
 
         private void Start()
@@ -74,14 +67,14 @@ namespace CatBall
 
 
             _lines.SetPosition(0, transform.position);
-            var finalPos = transform.position + (maxTrailLength * _kickDir);
+            var finalPos = transform.position + (trailLength * _kickDir);
             _lines.SetPosition(1, finalPos);
 
 
             if (WasKickButtonPressed())
             {
                 // this will trigger the kick in Fixed Update
-                _kickScale = 1f;
+                _kickNextUpdate = true;
             }
         }
 
@@ -90,11 +83,11 @@ namespace CatBall
         {
             DetectBall();
 
-            if (_canBoot && _kickScale > 0)
+            if (_canBoot && _kickNextUpdate)
             {
-                BootIt(_kickDir, _kickScale);
+                BootIt(_kickDir);
 
-                _kickScale = -1f;
+                _kickNextUpdate = false;
                 _kickDir = Vector3.zero;
             }
         }
@@ -102,6 +95,8 @@ namespace CatBall
 
         private void OnDrawGizmosSelected()
         {
+            if (!drawGizmos) return;
+
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(bootzoneDetectionPos.position, bootzoneRadius);
         }
@@ -129,35 +124,23 @@ namespace CatBall
             }
         }
 
-        private void BootIt(Vector3 dir, float velocityScale)
+        private void BootIt(Vector3 dir)
         {
-            // var dir = Input.mousePosition - _mousePosOnEntry;
-            // dir.z = 0;
-
-            // var dir = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), transform.position.z);
-            // if (invertDirection) dir *= -1;
-
             onKick.Invoke();
 
+            Vector3 scalers = dir.normalized * kickSpeed;
 
-            var vToAdd = Mathf.Lerp(minKickVelocity, maxKickVelocity, velocityScale);
+            _ball.GetComponent<CatController>().Kick(scalers);
 
-            Vector2 scalers = dir.normalized * vToAdd;
+            var effectPos = transform.position + (_ball.transform.position - transform.position) / 2;
+            Instantiate(kickEffect, effectPos, Quaternion.identity);
 
-            _ball.GetComponent<Rigidbody2D>().velocity = scalers;
-
-            // todo(chris) grab this when we grab the ball
-            // _ball.GetComponent<Rigidbody2D>().velocity = new Vector2(scalers.x + vel.x, scalers.y + vel.y);
             CantBoot();
         }
 
         private void CanBoot(Collider2D other)
         {
             Time.timeScale = reducedTimScale;
-
-            _mousePosOnEntry = Input.mousePosition;
-            _mousePosOnEntryWorldPos = cam.ScreenToWorldPoint(_mousePosOnEntry);
-            _mousePosOnEntryWorldPos.z = transform.position.z;
 
             _ball = other.gameObject;
             _lines.enabled = true;
@@ -179,7 +162,6 @@ namespace CatBall
             StartCoroutine(TweenTimeScaleOut());
         }
 
-        [SerializeField] private float timeToMoveOut = .5f;
         private IEnumerator TweenTimeScaleOut()
         {
             var start = Time.time;

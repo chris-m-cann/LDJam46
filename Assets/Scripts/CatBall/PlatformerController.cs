@@ -44,10 +44,15 @@ namespace CatBall
         [SerializeField] private float slomoFactor;
 
 
-        // 0 - from ground
-        // 1 - from wall
-        // can you tell im running out of time :)
-        [SerializeField] private IntUnityEvent onJump;
+        // events for state transitions that the player goes through
+        [Header("Player State Transition Events")]
+        [SerializeField] private UnityEvent onJump;
+        [SerializeField] private UnityEvent onLeftWallJump;
+        [SerializeField] private UnityEvent onRightWallJump;
+        [SerializeField] private UnityEvent onLeftWallSlide;
+        [SerializeField] private UnityEvent onRightWallSlide;
+        [SerializeField] private UnityEvent onLeftWallExit;
+        [SerializeField] private UnityEvent onRightWallExit;
 
         private float _gravityScaleUp = 1f;
         private float _gravityScaleDown = 1f;
@@ -57,10 +62,6 @@ namespace CatBall
 
         private float _lastHorizontal;
         private float _horizontal;
-        private float _leftPressTime = -1f;
-        private float _rightPressTime = -1f;
-        private float _horzontalReleasedTime = -1f;
-        private float _fromV;
         private float _maxSpeed;
         private float tweenTime;
 
@@ -69,9 +70,11 @@ namespace CatBall
         private bool _jumpPressed;
         private bool _jumpReleased;
         private float _jumpStartTime;
-        private bool _isGrounded;
+        private bool _isGrounded = true;
         private bool _isOnLeftWall;
         private bool _isOnRightWall;
+        private bool _isInLeftWallSlide;
+        private bool _isInRightWallSlide;
         private bool _wasOnAWall;
         private float _lastPress;
         private float _lastGrounded;
@@ -150,32 +153,6 @@ namespace CatBall
 
             _horizontal = controls.move.GetAxisRaw();
 
-            if (!wasZero && Mathf.Approximately(_horizontal, 0f))
-            {
-                _leftPressTime = -1f;
-                _rightPressTime = -1f;
-                _horzontalReleasedTime = Time.time;
-                _fromV = _rb.velocity.x;
-            } else if (_horizontal > float.Epsilon)
-            {
-                if (wasZero || lastHorizontal < -float.Epsilon)
-                {
-                    _leftPressTime = -1f;
-                    _rightPressTime = Time.time;
-                    _horzontalReleasedTime = -1f;
-                    _fromV = _rb.velocity.x;
-                }
-            } else if (_horizontal < -float.Epsilon)
-            {
-                if (wasZero || lastHorizontal > float.Epsilon)
-                {
-                    _leftPressTime = Time.time;
-                    _rightPressTime = -1f;
-                    _horzontalReleasedTime = -1f;
-                    _fromV = _rb.velocity.x;
-                }
-            }
-
 
             if (controls.jump.WasPressed())
             // if (Input.GetButtonDown("Jump"))
@@ -201,6 +178,9 @@ namespace CatBall
 
         private void FixedUpdate()
         {
+            var wasInLeftWallSlide = _isInLeftWallSlide;
+            var wasInRightWallSlide = _isInRightWallSlide;
+
             DetectWhatImTouching();
             if (_isGrounded) _lastGrounded = Time.time;
 
@@ -223,17 +203,32 @@ namespace CatBall
             {
                 vx = _rb.velocity.x;
                 pressingIntoWall = true;
+                _isInRightWallSlide = !_isGrounded;
+            }
+            else
+            {
+                _isInRightWallSlide = false;
             }
 
             if (_isOnLeftWall && vx < 0)
             {
                 vx = _rb.velocity.x;
                 pressingIntoWall = true;
+                _isInLeftWallSlide = !_isGrounded;
+            }
+            else
+            {
+                _isInLeftWallSlide = false;
             }
 
+
+            if (!wasInLeftWallSlide && _isInLeftWallSlide && !_isGrounded) onLeftWallSlide.Invoke();
+            if (!wasInRightWallSlide && _isInRightWallSlide && !_isGrounded) onRightWallSlide.Invoke();
+
+            if (wasInLeftWallSlide && !(_isInLeftWallSlide && !_isGrounded)) onLeftWallExit.Invoke();
+            if (wasInRightWallSlide && !(_isInRightWallSlide && !_isGrounded)) onRightWallExit.Invoke();
+
             var newVelocity =  HandleJumpPress(vx);
-
-
 
 
             newVelocity.y = Mathf.Max(newVelocity.y, -param.maxFallSpeed);
@@ -279,7 +274,7 @@ namespace CatBall
                 yvel = _wallJumpVzero.y;
                 xvel = _wallJumpVzero.x;
 
-                onJump.Invoke(1);
+                onLeftWallJump.Invoke();
             }
             else if (!_isGrounded && _isOnRightWall && (inGraceTime || inWallJumpCoyoteTime))
             {
@@ -289,7 +284,7 @@ namespace CatBall
                 yvel = _wallJumpVzero.y;
                 xvel = -_wallJumpVzero.x;
 
-                onJump.Invoke(1);
+                onRightWallJump.Invoke();
             }
             else
             {
@@ -300,7 +295,7 @@ namespace CatBall
                     _lastPress = 0;
                     yvel = _vyzero;
 
-                    onJump.Invoke(0);
+                    onJump.Invoke();
                 }
             }
 

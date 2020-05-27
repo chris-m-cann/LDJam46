@@ -10138,13 +10138,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   drawGizmos: 1
-  invertDirection: 1
-  maxKickedSpeed: 30
   reducedTimScale: 0.05
-  minKickVelocity: 10
-  maxKickVelocity: 30
-  maxKickTime: 2
-  maxTrailLength: 1.3
+  timeToMoveOut: 0.5
+  kickSpeed: 30
+  trailLength: 1.3
+  kickEffect: {fileID: 1947954804925644163, guid: 5ebc011ba7516f743a7dd9a035fc1149,
+    type: 3}
   onKick:
     m_PersistentCalls:
       m_Calls:
@@ -10188,7 +10187,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  timeToMoveOut: 0.5
 --- !u!114 &1837655525930373519
 MonoBehaviour:
   m_ObjectHideFlags: 0

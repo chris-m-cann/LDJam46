@@ -8,6 +8,7 @@ namespace CatBall
 {
     public class CatController : MonoBehaviour
     {
+        [SerializeField] private Animator animator;
         [SerializeField] private GameObject onKickEffect;
         [SerializeField] private GameObject regularTrail;
         [SerializeField] private GameObject kickedTrail;
@@ -17,6 +18,9 @@ namespace CatBall
         private Rigidbody2D _rigidbody;
         private CatControllerState _state;
         private Color _kickTrailStartColour;
+        private static readonly int Horizontal = Animator.StringToHash("Horizontal");
+        private static readonly int Vertical = Animator.StringToHash("Vertical");
+        private static readonly int Kicked = Animator.StringToHash("Kicked");
 
         private void Awake()
         {
@@ -29,6 +33,9 @@ namespace CatBall
 
         private void FixedUpdate()
         {
+            var v = _rigidbody.velocity.normalized;
+            animator.SetFloat(Horizontal, v.x);
+            animator.SetFloat(Vertical, v.y);
             _state.OnFixedUpdate(this);
         }
 
@@ -38,6 +45,7 @@ namespace CatBall
             Instantiate(onKickEffect, transform.position, Quaternion.identity);
 
             ChangeState(new KickedState());
+            animator.SetTrigger("Kick");
         }
 
         private void ChangeState(CatControllerState newState)
@@ -69,6 +77,7 @@ namespace CatBall
         {
             public override void OnStateEnter(CatController controller)
             {
+                controller.animator.SetBool(Kicked, true);
                 controller.StopAllCoroutines();
 
 
@@ -92,6 +101,7 @@ namespace CatBall
 
             public override void OnStateExit(CatController controller)
             {
+                controller.animator.SetBool(Kicked, false);
                 controller.StopAllCoroutines();
                 controller.StartCoroutine(FadeOutTrail(controller));
 

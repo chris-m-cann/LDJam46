@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace CatBall
 {
+    [RequireComponent(typeof(Animator))]
     public class Door : MonoBehaviour
     {
         [SerializeField] private bool isOpen = false;
@@ -19,13 +20,26 @@ namespace CatBall
         {
             if (isOpen)
             {
-                _animator.SetTrigger(CloseDoor);
+                Close();
             }
             else
             {
-                _animator.SetTrigger(OpenDoor);
+                Open();
             }
         }
 
+        public void Close()
+        {
+            if (!isOpen) return;
+            _animator.SetTrigger(CloseDoor);
+            isOpen = false;
+        }
+
+        public void Open()
+        {
+            if (isOpen) return;
+            _animator.SetTrigger(OpenDoor);
+            isOpen = true;
+        }
     }
 }

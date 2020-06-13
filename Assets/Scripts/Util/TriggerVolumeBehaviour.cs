@@ -6,11 +6,17 @@ namespace Util
 {
     public class TriggerVolumeBehaviour : MonoBehaviour
     {
-        public UnityEvent onTrigger;
+        public UnityEvent onTriggerEnter;
+        public UnityEvent onTriggerExit;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            onTrigger.Invoke();
+            onTriggerEnter.Invoke();
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            onTriggerExit.Invoke();
         }
     }
 }

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e57c25ab12e4d9e9621b875f8ef8bb9, type: 3}
   m_Name: LandScreenShake
   m_EditorClassIdentifier: 
-  magnitude: 0.05
-  duration: 0.1
+  magnitude: 0.171
+  duration: 0.5

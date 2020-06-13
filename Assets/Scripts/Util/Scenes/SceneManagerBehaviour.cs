@@ -46,6 +46,10 @@ namespace Util
 
         private IEnumerator ReplaceScene(int newScene, float sceneLoadDelay)
         {
+            Debug.Log($"replacing scene {SceneManager.sceneCountInBuildSettings}");
+            if (newScene >= SceneManager.sceneCountInBuildSettings) newScene = _currentScene;
+            Debug.Log($"new scene = {newScene}");
+
             // break out early if already loading
             if (_reloadOngoing) yield break;
 

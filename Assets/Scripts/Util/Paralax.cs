@@ -14,7 +14,7 @@ namespace Util
         private void Start()
         {
             _cam = Camera.main.transform;
-            lastCamPos = transform.position;
+            lastCamPos = _cam.position;
         }
 
         private void LateUpdate()

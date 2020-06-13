@@ -7,6 +7,7 @@ namespace CatBall
     {
         [SerializeField] private Transform[] waypoints;
         [SerializeField] private float speed;
+        [SerializeField] private bool runOnAwake = true;
 
 
         private readonly InSequenceSelector _selector = new InSequenceSelector();
@@ -14,6 +15,7 @@ namespace CatBall
         private Transform _target;
         private float _leaveTime;
         private float _timeToTarget;
+        private bool _running = false;
 
         private void Awake()
         {
@@ -22,6 +24,10 @@ namespace CatBall
 
         private void Start()
         {
+            if (waypoints.Length == 0)
+            {
+                return;
+            }
             _target = SelectNextWaypoint();
             _lastTargetPos = transform.position;
 
@@ -29,6 +35,7 @@ namespace CatBall
 
             _timeToTarget = dist / speed;
             _leaveTime = Time.time;
+            _running = runOnAwake;
         }
 
         // Despite not using physics I still use FixedUpdate so as to sync up with the players physics based movement
@@ -37,6 +44,10 @@ namespace CatBall
         // this may be desirable for dropping away platforms
         private void FixedUpdate()
         {
+            if (waypoints.Length == 0 || !_running)
+            {
+                return;
+            }
 
             if (Vector3.Distance(transform.position, _target.position) < Vector3.kEpsilon)
             {
@@ -62,6 +73,11 @@ namespace CatBall
         private Transform SelectNextWaypoint()
         {
             return _selector.Select(waypoints);
+        }
+
+        public void Run()
+        {
+            _running = true;
         }
     }
 }

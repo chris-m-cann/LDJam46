@@ -51,6 +51,8 @@ namespace Util
 
             while (end > Time.time && target != null)
             {
+                if (target == null) yield break;
+                
                 var t = (Time.time - start) / duration;
                 var m = Tween.SmoothStop3(magnitude, 0, t);
 
@@ -74,6 +76,8 @@ namespace Util
 
                 yield return null;
             }
+
+            if (target == null) yield break;
 
             // return to normal
             var finalEulers = target.rotation.eulerAngles;

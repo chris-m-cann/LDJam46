@@ -28,6 +28,7 @@ namespace CatBall
             {
                 _ball = null;
                 _ballRb = null;
+                other.gameObject.transform.parent = null;
                 if (disableOnBallExit) gameObject.SetActive(false);
             }
         }
@@ -37,13 +38,23 @@ namespace CatBall
             if (!_ball) return;
 
             var distance = Vector3.Distance(transform.position, _ball.transform.position);
-            var withinRange = Vector3.Distance(transform.position, _ball.transform.position) < snapDistance;
-            var slowEnough = _ballRb.velocity.sqrMagnitude < (snapVelocity * snapVelocity);
+            var withinRange = distance < snapDistance;
+            var sqrMag = _ballRb.velocity.sqrMagnitude;
+            var slowEnough = sqrMag < (snapVelocity * snapVelocity);
 
-            if (withinRange && slowEnough)
+            if (sqrMag  - (0.001f) <= floatVelocity * floatVelocity)
             {
-                _ballRb.velocity = Vector2.zero;
-                _ball.transform.position = transform.position;
+
+                if (withinRange && slowEnough)
+                {
+                    _ballRb.velocity = Vector2.zero;
+                    _ball.transform.position = transform.position;
+                    _ball.transform.parent = transform;
+                }
+                else
+                {
+                    _ballRb.velocity = (transform.position - _ball.transform.position).normalized * floatVelocity;
+                }
             }
         }
     }

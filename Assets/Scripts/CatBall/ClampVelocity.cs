@@ -16,13 +16,18 @@ namespace CatBall
 
         private void FixedUpdate()
         {
-            var mag = _rb.velocity.magnitude;
-            if (mag == 0f) return;
+            var sqrMagnitude = _rb.velocity.sqrMagnitude;
 
-            var clamped = Mathf.Clamp(mag, -maxSpeed, maxSpeed);
+            if (sqrMagnitude > (maxSpeed * maxSpeed))
+            {
+                _rb.velocity = _rb.velocity.normalized * maxSpeed;
+            }
 
-            var scale = clamped / mag;
-            _rb.velocity *= scale;
+            var v = _rb.velocity;
+            if (_rb.velocity.x < 0.001 && _rb.velocity.x > -0.001) v.x = 0;
+            if (_rb.velocity.y < 0.001 && _rb.velocity.y > -0.001) v.y = 0;
+
+            _rb.velocity = v;
         }
     }
 }

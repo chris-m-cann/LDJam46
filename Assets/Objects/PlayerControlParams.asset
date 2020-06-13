@@ -30,7 +30,7 @@ MonoBehaviour:
   wallJumpMinLength: 3
   timeToMaxSpeedOffTheWall: 0.5
   timeToBackFromMaxSpeedOffTheWall: 0.3
-  wallJumpCoyoteTime: 0.05
+  wallJumpCoyoteTime: 0.1
   groundMask:
     serializedVersion: 2
     m_Bits: 256

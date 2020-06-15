@@ -81,15 +81,21 @@ namespace CatBall
 
         private void FixedUpdate()
         {
-            DetectBall();
 
-            if (_canBoot && _kickNextUpdate)
+            // there is a possibility that ball leaves just as we
+            // hit kick (so _canBoot = false but _kickNext_update = true
+            // in that case give player benefit of doubt and let them kick
+            // Todo(chris) extend this iea to a timer similar to coyote time to give player more leeway
+            if (_kickNextUpdate)
             {
                 BootIt(_kickDir);
 
                 _kickNextUpdate = false;
                 _kickDir = Vector3.zero;
             }
+
+            // needs to be done after the kick in case ball has juuust left the area as we hit kick
+            DetectBall();
         }
 
 

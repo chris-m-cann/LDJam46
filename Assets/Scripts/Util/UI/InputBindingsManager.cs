@@ -28,7 +28,7 @@ namespace Util.UI
 
         private Dictionary<PlayerAction, ControlBinding> _controlBindings;
 
-        private void Awake()
+        private void OnEnable()
         {
             LoadMappings();
         }
@@ -108,7 +108,15 @@ namespace Util.UI
 
         public void LoadMappings()
         {
+            // basically have a circular reference here. The CreateControlBindings needs the actions to be registered and the register action for the axis needs the bindings in place. not really sure how this worked before
             _controlBindings = _scheme.CreateControlBindings();
+
+            var actions = GetComponentsInChildren<IRegisteredAction>();
+            foreach (var action in actions)
+            {
+                action.RegisterAction(this);
+            }
+
 
             foreach (var binding in _controlBindings)
             {

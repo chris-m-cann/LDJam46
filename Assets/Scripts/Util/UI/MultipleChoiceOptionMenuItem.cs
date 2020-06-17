@@ -86,15 +86,15 @@ namespace Util.UI
         {
             option2.text = options[_idx];
 
-            var startTime = Time.time;
-            var endTime = Time.time + tweenTime;
+            var startTime = Time.unscaledTime;
+            var endTime = Time.unscaledTime + tweenTime;
 
             var colour1 = option1.color;
             var colour2 = option2.color;
 
-            while (Time.time < endTime)
+            while (Time.unscaledTime < endTime)
             {
-                var currentTime = (Time.time - startTime) / tweenTime;
+                var currentTime = (Time.unscaledTime - startTime) / tweenTime;
                 option1.transform.position = new Vector3(
                     Tween.SmoothStart2(startPos1, endPos1, currentTime),
                     option1.transform.position.y, option1.transform.position.z

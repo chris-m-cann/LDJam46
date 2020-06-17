@@ -5,7 +5,7 @@ using Util.Control;
 
 namespace Util.UI
 {
-    public class RebindAxisFromOptions : MonoBehaviour
+    public class RebindAxisFromOptions : MonoBehaviour, IRegisteredAction
     {
         [SerializeField] private PlayerAction action;
         [SerializeField] private Axis[] axes;
@@ -13,13 +13,10 @@ namespace Util.UI
         private InputBindingsManager _bindings;
 
 
-        private void Awake()
+        public void RegisterAction(InputBindingsManager bindingsManager)
         {
-            _bindings = FindObjectOfType<InputBindingsManager>();
-        }
+            _bindings = bindingsManager;
 
-        private void Start()
-        {
             if (axes.Length == 0)
             {
                 Debug.LogError("need some axes to choose between");

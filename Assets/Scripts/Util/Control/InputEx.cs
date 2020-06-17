@@ -17,6 +17,7 @@ namespace Util.Control
         [SerializeField] private UnityEvent onControllerRemoved;
 
         private bool _hasController;
+        private bool _readControls = true;
 
         public static bool IsControllerConnected()
         {
@@ -47,6 +48,8 @@ namespace Util.Control
 
         private void Update()
         {
+            if (PauseMenu.IS_GAME_PAUSED) return;
+
             controls.UpdateControls(gameObject);
         }
 

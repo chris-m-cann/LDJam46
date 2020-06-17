@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Util;
 using Util.Control;
+using Util.UI;
 
 namespace CatBall
 {
@@ -58,6 +59,8 @@ namespace CatBall
 
         private void Update()
         {
+            if (PauseMenu.IS_GAME_PAUSED) return;
+
             if (!_canBoot) return;
 
             if (WasKickCancelPressed()) CantBoot();
@@ -175,6 +178,12 @@ namespace CatBall
 
             while (Time.time < end)
             {
+                if (PauseMenu.IS_GAME_PAUSED)
+                {
+                    yield return null;
+                    continue;
+                }
+
                 var t = (Time.time - start) / timeToMoveOut;
                 Time.timeScale = Tween.SmoothStop5(reducedTimScale, 1f, t);
                 yield return null;

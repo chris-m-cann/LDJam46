@@ -1,7 +1,9 @@
 ﻿using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using Util;
+using Util.UI;
 
 namespace CatBall
 {
@@ -148,6 +150,8 @@ namespace CatBall
 
         private void Update()
         {
+            if (PauseMenu.IS_GAME_PAUSED) return;
+
             var lastHorizontal = _horizontal;
             var wasZero = Mathf.Approximately(lastHorizontal, 0f);
 

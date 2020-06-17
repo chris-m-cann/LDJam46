@@ -5,7 +5,7 @@ using Util.Control;
 
 namespace Util.UI
 {
-    public class RebindKey : MonoBehaviour
+    public class RebindKey : MonoBehaviour, IRegisteredAction
     {
         [SerializeField] private PlayerAction action;
         [SerializeField] private bool allowKeyboardKeys;
@@ -24,9 +24,9 @@ namespace Util.UI
         private KeyCode[] _codes;
         private InputBindingsManager _bindings;
 
-        private void Awake()
+        public void RegisterAction(InputBindingsManager bindingsManager)
         {
-            _bindings = FindObjectOfType<InputBindingsManager>();
+            _bindings = bindingsManager;
             _bindings.RegisterAction(
                 action,
                 str => onRebindActionString.Invoke(str),

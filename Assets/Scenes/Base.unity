@@ -1732,6 +1732,10 @@ PrefabInstance:
       propertyPath: cursorHotspot.y
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 1575724937, guid: 312ccb0c758dc3449a5c5a67618e6069, type: 3}
+      propertyPath: minMouseMove
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2060078845954041950, guid: 312ccb0c758dc3449a5c5a67618e6069,
         type: 3}
       propertyPath: m_Name

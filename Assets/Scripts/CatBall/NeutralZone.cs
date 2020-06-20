@@ -5,12 +5,14 @@ namespace CatBall
 {
     public class NeutralZone : MonoBehaviour
     {
-        [SerializeField] private bool disableOnBallExit;
         [SerializeField] private float snapDistance;
         [SerializeField] private float floatVelocity;
         [SerializeField] private float snapVelocity;
         private GameObject _ball;
         private Rigidbody2D _ballRb;
+        // here still as we may want to make some that dont but untill we have the time to make them visually distinct then
+        // better to make them all consistant
+        private bool _disableOnBallExit = true;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -29,7 +31,7 @@ namespace CatBall
                 _ball = null;
                 _ballRb = null;
                 other.gameObject.transform.parent = null;
-                if (disableOnBallExit) gameObject.SetActive(false);
+                if (_disableOnBallExit) gameObject.SetActive(false);
             }
         }
 

@@ -24,6 +24,7 @@ namespace CatBall
             onDeath.Invoke();
             Instantiate(corpse, transform.position, Quaternion.identity);
             _sceneManager.ReloadSceneAfter(sceneLoadDelay);
+            Time.timeScale = 1f;
             gameObject.SetActive(false);
         }
 

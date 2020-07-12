@@ -9,11 +9,9 @@ namespace Util.Control
         [SerializeField] private Texture2D cursor;
         [SerializeField] private Vector2 cursorHotspot = Vector2.zero;
         [SerializeField] private bool cursorVisible = true;
-        [Header("Hide Mouse")]
-        [Tooltip("set timer <= 0 to disable this feature")]
+        [Header("Hide Mouse (timer <= 0 to disable)")]
         [SerializeField] private float cursorInvisibleAfter = 3f;
-        [Tooltip("in pixels")]
-        [SerializeField] private short minMouseMove = 2;
+        [SerializeField] private short wakeUpCursorDistancePixels = 2;
 
         private float _hideCursor = 0f;
         private Vector2 _lastMousePos;
@@ -52,7 +50,7 @@ namespace Util.Control
 
         private void UpdateHideCursor()
         {
-            bool hasMoved = Vector2.Distance(_lastMousePos, Input.mousePosition) > minMouseMove;
+            bool hasMoved = Vector2.Distance(_lastMousePos, Input.mousePosition) > wakeUpCursorDistancePixels;
             _lastMousePos = Input.mousePosition;
 
             if (cursorVisible)

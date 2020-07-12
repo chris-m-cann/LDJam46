@@ -67,7 +67,7 @@ namespace CatBall
 
         private float TweenPos(float start, float end)
         {
-            return Tween.SmoothStep3(start, end, (Time.time - _leaveTime) / _timeToTarget);
+            return Tween.SmoothStep6(start, end, (Time.time - _leaveTime) / _timeToTarget);
         }
 
         private Transform SelectNextWaypoint()

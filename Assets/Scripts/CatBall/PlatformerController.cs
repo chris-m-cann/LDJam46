@@ -159,14 +159,12 @@ namespace CatBall
 
 
             if (controls.jump.WasPressed())
-            // if (Input.GetButtonDown("Jump"))
             {
                 _jumpPressed = true;
                 _lastPress = Time.time;
             }
 
             if (controls.jump.WasReleased()) _jumpReleased = true;
-            // if (Input.GetButtonUp("Jump")) _jumpReleased = true;
         }
 
         private void OnDrawGizmosSelected()
@@ -186,7 +184,7 @@ namespace CatBall
             var wasInRightWallSlide = _isInRightWallSlide;
 
             DetectWhatImTouching();
-            if (_isGrounded) _lastGrounded = Time.time;
+
 
             var onAWall = !_isGrounded && (_isOnLeftWall || _isOnRightWall);
 
@@ -196,7 +194,11 @@ namespace CatBall
                 _wasOnAWall = true;
             }
 
-            if (_isGrounded) _wasOnAWall = false;
+            if (_isGrounded)
+            {
+                _lastGrounded = Time.time;
+                _wasOnAWall = false;
+            }
 
 
             var vx = HorizontalMovement();

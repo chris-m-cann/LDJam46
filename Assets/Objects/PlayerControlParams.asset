@@ -17,7 +17,7 @@ MonoBehaviour:
   timeToPeak: 0.5
   timeBackDown: 0.3
   coyoteTime: 0.05
-  graceTime: 0.05
+  graceTime: 0.1
   maxJumpWidth: 10
   timeToMaxSpeed: 0.1
   timeBackFromMaxToRest: 0.1
@@ -27,10 +27,10 @@ MonoBehaviour:
   wallSlideSpeed: 1
   wallJumpHeight: 2
   wallJumpTimeToPeak: 0.5
-  wallJumpMinLength: 3
+  wallJumpMinLength: 4
   timeToMaxSpeedOffTheWall: 0.5
   timeToBackFromMaxSpeedOffTheWall: 0.3
-  wallJumpCoyoteTime: 0.1
+  wallJumpCoyoteTime: 0.2
   groundMask:
     serializedVersion: 2
     m_Bits: 256

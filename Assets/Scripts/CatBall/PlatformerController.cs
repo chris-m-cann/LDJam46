@@ -81,6 +81,7 @@ namespace CatBall
         private float _lastPress;
         private float _lastGrounded;
         private float _lastOnAWall;
+        private float _lastPressingIntoWall;
 
         private float _groundedAcceleration;
         private float _groundedDeceleration;
@@ -204,11 +205,10 @@ namespace CatBall
             var vx = HorizontalMovement();
 
             // these stop the player sticking on walls when pressing in to them
-            var pressingIntoWall = false;
-            if (_isOnRightWall && vx > 0)
+            if (_isOnRightWall && _horizontal > 0.1)
             {
                 vx = _rb.velocity.x;
-                pressingIntoWall = true;
+                _lastPressingIntoWall = Time.time;
                 _isInRightWallSlide = !_isGrounded;
             }
             else
@@ -216,16 +216,18 @@ namespace CatBall
                 _isInRightWallSlide = false;
             }
 
-            if (_isOnLeftWall && vx < 0)
+            if (_isOnLeftWall && _horizontal < -0.1)
             {
                 vx = _rb.velocity.x;
-                pressingIntoWall = true;
                 _isInLeftWallSlide = !_isGrounded;
+                _lastPressingIntoWall = Time.time;
             }
             else
             {
                 _isInLeftWallSlide = false;
             }
+
+            var pressingIntoWall = (_isOnLeftWall || _isOnRightWall) && (Time.time - _lastPressingIntoWall < param.wallStickTime);
 
 
             if (!wasInLeftWallSlide && _isInLeftWallSlide && !_isGrounded) onLeftWallSlide.Invoke();
@@ -245,15 +247,16 @@ namespace CatBall
 
             if (_rb.velocity.y < 0)
             {
-                if (!(onAWall && pressingIntoWall))
+                if ((onAWall && pressingIntoWall))
+                {
+                    // wall sliding
+                    _rb.gravityScale = 0;
+                    _rb.velocity = new Vector2(_rb.velocity.x, -param.wallSlideSpeed);
+                }
+                else
                 {
                     _rb.gravityScale = _gravityScaleDown;
                     _wasOnAWall = false;
-                }
-                else // wall sliding
-                {
-                    _rb.gravityScale = 0;
-                    _rb.velocity = new Vector2(_rb.velocity.x, -param.wallSlideSpeed);
                 }
             }
 
@@ -377,6 +380,11 @@ namespace CatBall
             {
                 acceleration = _groundedAcceleration;
                 deceleration = _groundedDeceleration;
+            }
+            else if ((_isOnLeftWall || _isOnRightWall) && (Time.time - _lastPressingIntoWall) < param.wallStickTime)
+            {
+                acceleration = 0f;
+                deceleration = 0f;
             }
             else if (_wasOnAWall)
             {

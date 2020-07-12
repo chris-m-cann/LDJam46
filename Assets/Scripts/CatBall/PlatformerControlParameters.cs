@@ -38,6 +38,7 @@ namespace CatBall
         public float timeToMaxSpeedOffTheWall;
         public float timeToBackFromMaxSpeedOffTheWall;
         public float wallJumpCoyoteTime;
+        public float wallStickTime;
 
         [Space]
         [Tooltip("Layers we consider as 'ground'")]

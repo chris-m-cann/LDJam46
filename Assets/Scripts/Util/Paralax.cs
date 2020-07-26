@@ -17,7 +17,7 @@ namespace Util
             lastCamPos = _cam.position;
         }
 
-        private void LateUpdate()
+        private void FixedUpdate()
         {
             var dif = _cam.position - lastCamPos;
             var reduced = dif * magnitude;

@@ -8,9 +8,10 @@ namespace CatBall
         [SerializeField] private Transform[] waypoints;
         [SerializeField] private float speed;
         [SerializeField] private bool runOnAwake = true;
+        [SerializeField] private int initialWaypointIndex = 0;
 
 
-        private readonly InSequenceSelector _selector = new InSequenceSelector();
+        private InSequenceSelector _selector;
         private Vector3 _lastTargetPos;
         private Transform _target;
         private float _leaveTime;
@@ -28,6 +29,8 @@ namespace CatBall
             {
                 return;
             }
+            _selector = new InSequenceSelector(initialWaypointIndex);
+
             _target = SelectNextWaypoint();
             _lastTargetPos = transform.position;
 

@@ -15,20 +15,17 @@ EditorBuildSettings:
     path: Assets/Scenes/_1.unity
     guid: 42fd07f395a5e3845ae6c932b0f5b7ae
   - enabled: 1
-    path: Assets/Scenes/_21.unity
-    guid: 79cc1a7919eb3ac4a9f85417718bd9a1
-  - enabled: 1
     path: Assets/Scenes/_22.unity
     guid: 9992b9f1db463a84b9385abc6abc33fd
+  - enabled: 1
+    path: Assets/Scenes/_21.unity
+    guid: 79cc1a7919eb3ac4a9f85417718bd9a1
   - enabled: 1
     path: Assets/Scenes/_2.unity
     guid: 998a47be160d8614aad03f1a328cc6b8
   - enabled: 1
-    path: Assets/Scenes/_3.unity
-    guid: 83330ed41f3aa554eb786c30ba44b2f3
-  - enabled: 1
-    path: Assets/Scenes/_6.unity
-    guid: a44a65c0bdb24b4499db3be7889146d7
+    path: Assets/Scenes/_28.unity
+    guid: 3ef242e674b5c6b4884ff44e30a03cac
   - enabled: 1
     path: Assets/Scenes/_4.unity
     guid: e7fbbf5c362631a45be22fcca8cd43a2
@@ -63,23 +60,23 @@ EditorBuildSettings:
     path: Assets/Scenes/_16.unity
     guid: 490d29626fc8cf04e908ef5fed6168d8
   - enabled: 1
+    path: Assets/Scenes/_7.unity
+    guid: 5eeafae0a6d3a794c8647d46f76c5284
+  - enabled: 1
     path: Assets/Scenes/_17.unity
     guid: c0e41d44d1ab112428e38a774011959c
-  - enabled: 1
-    path: Assets/Scenes/_13.unity
-    guid: f032a9068c5ff1e4ea3d9bcef6b44b91
   - enabled: 1
     path: Assets/Scenes/_14.unity
     guid: 83edd07b63ebf2945861d6334c6bd979
   - enabled: 1
-    path: Assets/Scenes/_20.unity
-    guid: 6958082c805c3d74ba0d806036e876c5
+    path: Assets/Scenes/_13.unity
+    guid: f032a9068c5ff1e4ea3d9bcef6b44b91
   - enabled: 1
-    path: Assets/Scenes/_15.unity
-    guid: cb60b9bb538a07e4980f047deaae7e3c
+    path: Assets/Scenes/_27.unity
+    guid: 543b7eecf083ec54f8ee6eda1cd42af9
   - enabled: 1
-    path: Assets/Scenes/_7.unity
-    guid: 5eeafae0a6d3a794c8647d46f76c5284
+    path: Assets/Scenes/_24.unity
+    guid: e02af1f28f442ac44bfed42f83194068
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 394912ab899dd2c42aed4e53ba5ae2f7

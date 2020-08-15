@@ -81,6 +81,7 @@ namespace CatBall
         public void Run()
         {
             _running = true;
+            _leaveTime = Time.time;
         }
     }
 }

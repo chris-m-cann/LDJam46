@@ -10138,7 +10138,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   drawGizmos: 1
-  reducedTimScale: 0.05
+  reducedTimScale: 0.1
   timeToMoveOut: 0.5
   kickSpeed: 30
   trailLength: 1.3

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ball
   - Music
+  - NeutralZone
   layers:
   - Default
   - TransparentFX

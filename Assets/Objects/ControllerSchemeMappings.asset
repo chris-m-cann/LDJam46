@@ -24,7 +24,7 @@ MonoBehaviour:
     axis: 0
   - action: 6
     key: 0
-    axis: 4
+    axis: 7
   - action: 5
     key: 332
     axis: 0

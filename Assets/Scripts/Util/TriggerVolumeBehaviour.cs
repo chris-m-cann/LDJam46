@@ -17,7 +17,6 @@ namespace Util
         {
             if (targetTag.Length != 0 && !other.gameObject.CompareTag(targetTag)) return;
 
-            Debug.Log($"triggerd collision between {name} and {other.gameObject.name}");
             onTriggerEnter.Invoke();
             onTriggerEnterWithObj.Invoke(other.gameObject);
         }

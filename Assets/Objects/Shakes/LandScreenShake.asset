@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: LandScreenShake
   m_EditorClassIdentifier: 
   magnitude: 0.171
-  duration: 0.5
+  duration: 0.3

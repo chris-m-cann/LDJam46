@@ -8,36 +8,54 @@ namespace Util
 {
     public class ScreenShaker : MonoBehaviour
     {
-        [Range(0, 1)]
-        [SerializeField] private float magnitude = .5f;
-        [SerializeField] private float duration = 2f;
         [Range(0, 360)] [SerializeField] private float maxAngleDegrees = 10f;
         [SerializeField] private float maxTranslation = .5f;
         [SerializeField] private float fequency = 2f;
+        [Space] [SerializeField] private bool useCinemachineIfPossible = true;
+        [SerializeField] private float cinemachineAmplitudeMultiplier = 2;
 
         private CinemachineBrain _theBrain;
+        private CinemachineImpulseSource _impulse;
+        private CinemachineImpulseListener _listener;
+        private bool checkedForImpluseListener = false;
 
         private void Awake()
         {
             _theBrain = GetComponent<CinemachineBrain>();
+            _impulse = GetComponent<CinemachineImpulseSource>();
         }
 
-        public void StartShake(float magnitude, float duration)
+        public void OnSceneReloaded()
+        {
+            checkedForImpluseListener = false;
+        }
+
+        public void StartShake(ScreenShakeParameters ps)
+        {
+            if (!checkedForImpluseListener)
+            {
+                _listener = _theBrain.ActiveVirtualCamera.VirtualCameraGameObject
+                    .GetComponent<CinemachineImpulseListener>();
+                checkedForImpluseListener = true;
+            }
+
+            if (useCinemachineIfPossible && _listener != null && _listener.isActiveAndEnabled && _impulse != null && _impulse.isActiveAndEnabled)
+            {
+                StartImpulse(ps.magnitude, ps.duration, _impulse);
+            }
+            else
+            {
+                StartShake(ps.magnitude, ps.duration);
+            }
+        }
+
+
+        // shake target manually using perlin noise
+        private void StartShake(float magnitude, float duration)
         {
             var target = _theBrain.ActiveVirtualCamera?.VirtualCameraGameObject?.transform ?? transform;
             StartCoroutine(Shake(magnitude, duration, target));
         }
-
-        public void StartShake(ScreenShakeParameters ps) => StartShake(ps.magnitude, ps.duration);
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                StartShake(magnitude, duration);
-            }
-        }
-
 
         private IEnumerator Shake(float magnitude, float duration, Transform target)
         {
@@ -93,5 +111,57 @@ namespace Util
             // start of range + p * bredth of range (-1, 1) in this case
             return -1 + (p * 2);
         }
+
+
+        // Shake virtual camera via cinemachines impulse feature
+        private void StartImpulse(float magnitude, float duration, CinemachineImpulseSource impulse)
+        {
+            impulse.m_ImpulseDefinition.m_TimeEnvelope.m_DecayTime = duration;
+            impulse.m_ImpulseDefinition.m_AmplitudeGain = magnitude * cinemachineAmplitudeMultiplier;
+            impulse.GenerateImpulse();
+        }
+
+        // Currently Unused
+        // shake virtual camera via Cinemachine BasicPerlinNoise noise component
+        public void StartNoiseShake(float magnitude, float duration)
+        {
+            StartCoroutine(CoNoiseShake(magnitude, duration));
+        }
+
+        private IEnumerator CoNoiseShake(float magnitude, float duration)
+        {
+            var cam = _theBrain.ActiveVirtualCamera;
+            if (cam == null)
+            {
+                Debug.LogError("No Active Virtual camera");
+                yield break;
+            }
+
+            var camGo = cam.VirtualCameraGameObject;
+
+            if (camGo == null)
+            {
+                Debug.LogError("camGo null");
+                yield break;
+            }
+
+            var vcam = camGo.GetComponent<CinemachineVirtualCamera>();
+
+            var perlin = vcam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
+            if (perlin == null)
+            {
+                Debug.LogError($"Couldnt Find Perlin on {camGo.name}");
+                yield break;
+            }
+
+
+            perlin.m_AmplitudeGain = magnitude;
+
+            yield return new WaitForSeconds(duration);
+            perlin.m_AmplitudeGain = 0;
+        }
     }
+
+
 }

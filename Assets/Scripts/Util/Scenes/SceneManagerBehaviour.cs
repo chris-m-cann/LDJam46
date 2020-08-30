@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace Util
@@ -9,6 +10,8 @@ namespace Util
     {
         [SerializeField] private int initialSceneIndex = 2;
         [SerializeField] private bool loadAdditiveSceneOnAwake = true;
+        [SerializeField] private UnityEvent onSceneUnload;
+        [SerializeField] private UnityEvent onSceneLoad;
 
         private int _currentScene = 2;
         private bool _reloadOngoing = false;
@@ -46,9 +49,7 @@ namespace Util
 
         private IEnumerator ReplaceScene(int newScene, float sceneLoadDelay)
         {
-            Debug.Log($"replacing scene {SceneManager.sceneCountInBuildSettings}");
             if (newScene >= SceneManager.sceneCountInBuildSettings) newScene = _currentScene;
-            Debug.Log($"new scene = {newScene}");
 
             // break out early if already loading
             if (_reloadOngoing) yield break;
@@ -63,7 +64,8 @@ namespace Util
                 yield return 0;
             }
 
-
+            onSceneUnload.Invoke();
+            
             _currentScene = newScene;
 
             // just in case the scene was reloaded during a reduced timescale
@@ -79,7 +81,7 @@ namespace Util
         {
             yield return null;
             SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(_currentScene));
-
+            onSceneLoad.Invoke();
         }
     }
 }

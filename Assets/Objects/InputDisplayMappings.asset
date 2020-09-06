@@ -12,7 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5ad1bcd222a41f7b1b9d612051462f8, type: 3}
   m_Name: InputDisplayMappings
   m_EditorClassIdentifier: 
-  axisNames: []
-  codeNames: []
+  axisNames:
+  - first: 1
+    second: Mouse
+  codeNames:
+  - first: 330
+    second: A
+  - first: 276
+    second: <-
+  - first: 275
+    second: ->
+  - first: 323
+    second: L-Click
   axisSprites: []
   codeSprites: []

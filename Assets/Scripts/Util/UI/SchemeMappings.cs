@@ -18,9 +18,13 @@ namespace Util.UI
         }
 
         [SerializeField] private List<ActionBinding> bindings;
+
+        private Dictionary<PlayerAction, InputBindingsManager.ControlBinding> _bindingsCache;
         public Dictionary<PlayerAction, InputBindingsManager.ControlBinding> CreateControlBindings()
         {
-            var controls = new Dictionary<PlayerAction, InputBindingsManager.ControlBinding>();
+            if (_bindingsCache != null) return _bindingsCache;
+
+            _bindingsCache = new Dictionary<PlayerAction, InputBindingsManager.ControlBinding>();
 
             foreach (var binding in bindings)
             {
@@ -31,10 +35,10 @@ namespace Util.UI
                 };
 
                 if (binding.key == KeyCode.None) control.key = null;
-                controls[binding.action] = control;
+                _bindingsCache[binding.action] = control;
             }
 
-            return controls;
+            return _bindingsCache;
         }
 
         public void Save(Dictionary<PlayerAction, InputBindingsManager.ControlBinding> controlBindings)
@@ -49,6 +53,8 @@ namespace Util.UI
                     axis = pair.Value.axis
                 });
             }
+
+            _bindingsCache = null;
         }
     }
 }

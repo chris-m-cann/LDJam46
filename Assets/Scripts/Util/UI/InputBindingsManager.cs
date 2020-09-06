@@ -11,6 +11,24 @@ namespace Util.UI
     {
         public struct ControlBinding
         {
+                private sealed class KeyAxisEqualityComparer : IEqualityComparer<ControlBinding>
+                {
+                    public bool Equals(ControlBinding x, ControlBinding y)
+                    {
+                        return x.key == y.key && x.axis == y.axis;
+                    }
+
+                    public int GetHashCode(ControlBinding obj)
+                    {
+                        unchecked
+                        {
+                            return (obj.key.GetHashCode() * 397) ^ (int) obj.axis;
+                        }
+                    }
+                }
+
+                public static IEqualityComparer<ControlBinding> KeyAxisComparer { get; } = new KeyAxisEqualityComparer();
+
             public KeyCode? key;
             public Axis axis;
         }

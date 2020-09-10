@@ -6,6 +6,8 @@ namespace Util.UI
 {
     public class PauseMenu : MonoBehaviour
     {
+
+
         // dirty rotten static replace with scriptable object events in future projects
         public static bool IS_GAME_PAUSED = false;
 
@@ -14,11 +16,10 @@ namespace Util.UI
 
         private float _timeScaleBefore = 1f;
 
-        private void Update()
+        private void Awake()
         {
-            if (Input.GetKeyDown(KeyCode.Escape)) PauseResume();
+            IS_GAME_PAUSED = false;
         }
-
 
         private void OnDestroy()
         {
@@ -42,6 +43,7 @@ namespace Util.UI
                 onPause.Invoke();
             }
         }
+
 
     }
 }

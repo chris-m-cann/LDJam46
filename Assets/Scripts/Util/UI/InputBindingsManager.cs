@@ -40,6 +40,7 @@ namespace Util.UI
 
         [SerializeField] private StringUnityEvent onBindAction;
         [SerializeField] private StringUnityEvent onActionChosen;
+        [SerializeField] private UnityEvent onBindCanceled;
 
         private Dictionary<PlayerAction, StringUnityEvent> actionDisplayNameEvents = new Dictionary<PlayerAction, StringUnityEvent>();
         private Dictionary<PlayerAction, SpriteUnityEvent> actionDisplaySpriteEvents = new Dictionary<PlayerAction, SpriteUnityEvent>();
@@ -124,12 +125,18 @@ namespace Util.UI
             onBindAction.Invoke(action.ToString());
         }
 
+        public void CancelRebinding()
+        {
+            onBindCanceled.Invoke();
+        }
+
         public void LoadMappings()
         {
             // basically have a circular reference here. The CreateControlBindings needs the actions to be registered and the register action for the axis needs the bindings in place. not really sure how this worked before
             _controlBindings = _scheme.CreateControlBindings();
 
             var actions = GetComponentsInChildren<IRegisteredAction>();
+
             foreach (var action in actions)
             {
                 action.RegisterAction(this);

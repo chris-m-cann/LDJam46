@@ -54,7 +54,6 @@ namespace Util.UI
 
         private void UpdateText()
         {
-            Debug.Log("Calling Update text");
             if (_binding.HasValue)
             {
                 var binding = _binding.Value;

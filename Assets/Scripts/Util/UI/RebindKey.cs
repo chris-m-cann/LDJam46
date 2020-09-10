@@ -80,6 +80,11 @@ namespace Util.UI
         private void Update()
         {
             if (!_scanning) return;
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                CancelRebind();
+                return;
+            }
 
 
             // KeyCode actuall includes mouse buttons 0-4 minimum so no need to specific checks!!
@@ -128,6 +133,13 @@ namespace Util.UI
         {
             _bindings.StartRebinding(action);
             _scanning = true;
+        }
+
+        public void CancelRebind()
+        {
+            if (!_scanning) return;
+            _scanning = false;
+            _bindings.CancelRebinding();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Util.Control
         private bool _wasPressed;
         private bool _wasReleased;
 
-        public void Init(Axis axis, float min = 1f)
+        public void Init(Axis axis, float min = .9f)
         {
             _axis = axis;
             _min = min;
@@ -19,6 +19,7 @@ namespace Util.Control
 
         public override void UpdateControl(GameObject caller)
         {
+            Handled();
             _lastV = _v;
             _v = Input.GetAxis(_axis.ToString());
 

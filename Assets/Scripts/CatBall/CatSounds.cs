@@ -7,7 +7,7 @@ namespace CatBall
     public class CatSounds : MonoBehaviour
     {
         [SerializeField] private LayerMask ground;
-        [SerializeField] private AudioClip[] hitSounds;
+        [SerializeField] private AudioClipEx[] hitSounds;
 
         private AudioSource _source;
 
@@ -24,17 +24,18 @@ namespace CatBall
             }
         }
 
-        public void PlaySound(AudioClip[] clips)
+        public void PlaySound(AudioClipEx[] clips)
         {
             if (clips.Length == 0) return;
 
             _source.Stop();
 
             var clip = SelectRandom(clips);
-            _source.PlayOneShot(clip);
+            _source.SetClipDetails(clip);
+            _source.PlayOneShot(clip.clip);
         }
 
-        private AudioClip SelectRandom(AudioClip[] clips)
+        private AudioClipEx SelectRandom(AudioClipEx[] clips)
         {
 
             return clips[UnityEngine.Random.Range(0, clips.Length)];

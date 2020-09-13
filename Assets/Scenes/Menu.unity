@@ -593,6 +593,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: MusicManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4147421733058314902, guid: 2450154e2ec522d49bc93df0bbbd7453,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4147421733058314902, guid: 2450154e2ec522d49bc93df0bbbd7453,
+        type: 3}
+      propertyPath: BypassReverbZones
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2450154e2ec522d49bc93df0bbbd7453, type: 3}
 --- !u!1 &708742937

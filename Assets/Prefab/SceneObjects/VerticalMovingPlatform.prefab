@@ -46,6 +46,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -68,7 +69,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 298826579
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -3791199066822692559, guid: e786b625e07eece45b4c0b7f5d5b99dc,
     type: 3}
@@ -307,6 +308,12 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 337523374013940495, guid: b731a3119beedac469dcc594488212a1,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8980317638019128391, guid: e786b625e07eece45b4c0b7f5d5b99dc,
+        type: 3}
     - target: {fileID: 2167635796745738146, guid: b731a3119beedac469dcc594488212a1,
         type: 3}
       propertyPath: m_RootOrder

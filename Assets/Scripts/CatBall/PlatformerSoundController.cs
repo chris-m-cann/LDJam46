@@ -1,18 +1,20 @@
 using System;
+using System.Collections;
 using CatBall;
 using UnityEngine;
+using Util;
 using Random = UnityEngine.Random;
 
 namespace CatBall
 {
     public class PlatformerSoundController : MonoBehaviour
     {
-        public AudioClip[] jump;
-        public AudioClip[] land;
-        public AudioClip footsteps;
-        public AudioClip wallslide;
-        public AudioClip[] kick;
-        public AudioClip[] death;
+        public AudioClipEx[] jump;
+        public AudioClipEx[] land;
+        public AudioClipEx footsteps;
+        public AudioClipEx wallslide;
+        public AudioClipEx[] kick;
+        public AudioClipEx[] death;
 
 
         public float minSpeed = .5f;
@@ -24,6 +26,21 @@ namespace CatBall
 
         private bool _isPlayingRunning = false;
         private bool _isPlayingWallSliding = false;
+        private bool _playingOneshot;
+        private bool _landedPlayed = true;
+
+        private void OnValidate()
+        {
+            if (_isPlayingRunning)
+            {
+                source.SetClipDetails(footsteps);
+            }
+
+            if (_isPlayingWallSliding)
+            {
+                source.SetClipDetails(wallslide);
+            }
+        }
 
         private void Awake()
         {
@@ -35,7 +52,7 @@ namespace CatBall
         private void Update()
         {
             if (Mathf.Abs(_rigidbody.velocity.x) > minSpeed &&
-                controller.IsGrounded
+                controller.IsGrounded && _landedPlayed
                 )
             {
                 PlayFootsteps();
@@ -50,55 +67,76 @@ namespace CatBall
             {
                 StopSounds();
             }
-
-            // // stopped on the ground
-            // if (Mathf.Abs(_rigidbody.velocity.x) < minSpeed && controller.IsGrounded) StopSounds();
-            // // in air
-            // if (!controller.IsGrounded && !controller.IsOnAWall) StopSounds();
-
         }
 
         public void PlayFootsteps()
         {
-            if (_isPlayingRunning) return;
-            source.clip = footsteps;
+            if (_isPlayingRunning || _playingOneshot) return;
+            source.SetClipDetails(footsteps);
+            source.loop = true;
             source.Play();
             _isPlayingRunning = true;
         }
 
         public void PlayWallSlide()
         {
-            if (_isPlayingWallSliding) return;
-            source.clip = wallslide;
+            if (_isPlayingWallSliding || _playingOneshot) return;
+            source.SetClipDetails(wallslide);
+            source.loop = true;
             source.Play();
             _isPlayingWallSliding = true;
         }
 
         public void StopSounds()
         {
-            source.Stop();
+            if (!_playingOneshot)
+                source.Stop();
             _isPlayingRunning = false;
             _isPlayingWallSliding = false;
         }
 
-        public void PlayJump() => PlaySound(jump);
-        public void PlayLand() => PlaySound(land);
+        public void PlayJump()
+        {
+            _landedPlayed = false;
+            Debug.Log("PlayingJump");
+            PlaySound(jump);
+        }
+
+        public void PlayLand()
+        {
+            Debug.Log("PlayingLand");
+            PlaySound(land);
+            _landedPlayed = true;
+        }
+
         public void PlayKick() => PlaySound(kick);
         public void PlayDeath() => PlaySound(death);
 
-        public void PlaySound(AudioClip[] clips)
+        public void PlaySound(AudioClipEx[] clips)
         {
             if (clips.Length == 0) return;
 
-            source.Stop();
+            _playingOneshot = true;
 
             var clip = SelectRandom(clips);
-            source.PlayOneShot(clip);
+            StopAllCoroutines();
+            StartCoroutine(CoPlayClip(clip));
         }
 
-        private AudioClip SelectRandom(AudioClip[] clips)
+        private IEnumerator CoPlayClip(AudioClipEx clip)
         {
 
+            source.loop = false;
+            source.outputAudioMixerGroup = clip.mixer ?? source.outputAudioMixerGroup;
+
+            // using play one shot so can play multiple at the same time. such as kick and land
+            source.PlayOneShot(clip.clip, clip.volume);
+            yield return new WaitForSeconds(clip.clip.length);
+            _playingOneshot = false;
+        }
+
+        private AudioClipEx SelectRandom(AudioClipEx[] clips)
+        {
             return clips[Random.Range(0, clips.Length)];
         }
     }

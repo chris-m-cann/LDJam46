@@ -73,6 +73,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: {fileID: 0}
+  onGoal:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!82 &4718360388057324275
 AudioSource:
   m_ObjectHideFlags: 0
@@ -82,7 +85,8 @@ AudioSource:
   m_GameObject: {fileID: 5029504937088957073}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 845926523462321640, guid: 39baeec3acff32e44a66678e3f06f5f7,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: fb4c22cc3de34744090ae697f7c72be1, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Audio;
 using Util.Control;
 
 namespace Util
@@ -16,4 +17,12 @@ namespace Util
     [Serializable] public class StringStringPair: Pair<string, string>{}
     [Serializable] public class AxisSpritePair: Pair<Axis, Sprite>{}
     [Serializable] public class AxisStringPair: Pair<Axis, string>{}
+
+    [Serializable]
+    public class AudioClipEx
+    {
+        public AudioClip clip;
+        [Range(0, 1)] public float volume = 1f;
+        public AudioMixerGroup mixer;
+    }
 }

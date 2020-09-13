@@ -9752,8 +9752,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   hitSounds:
-  - {fileID: 8300000, guid: b222d450e76d8764b89ba93593c5224e, type: 3}
-  - {fileID: 8300000, guid: ca397b5c86726d44ab338ca39515b104, type: 3}
+  - clip: {fileID: 8300000, guid: b222d450e76d8764b89ba93593c5224e, type: 3}
+    volume: 0.361
+    mixer: {fileID: -6762373257203151216, guid: 39baeec3acff32e44a66678e3f06f5f7,
+      type: 2}
+  - clip: {fileID: 8300000, guid: ca397b5c86726d44ab338ca39515b104, type: 3}
+    volume: 1
+    mixer: {fileID: -6762373257203151216, guid: 39baeec3acff32e44a66678e3f06f5f7,
+      type: 2}
 --- !u!82 &3923190194025649935
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9765,10 +9771,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

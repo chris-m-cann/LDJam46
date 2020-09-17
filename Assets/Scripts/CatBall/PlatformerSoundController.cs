@@ -98,13 +98,11 @@ namespace CatBall
         public void PlayJump()
         {
             _landedPlayed = false;
-            Debug.Log("PlayingJump");
             PlaySound(jump);
         }
 
         public void PlayLand()
         {
-            Debug.Log("PlayingLand");
             PlaySound(land);
             _landedPlayed = true;
         }

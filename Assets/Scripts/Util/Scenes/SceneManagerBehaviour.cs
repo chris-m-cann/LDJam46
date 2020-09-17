@@ -105,8 +105,7 @@ namespace Util
             yield return null;
             SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(_currentScene));
 
-            if (transitions.Length != 0)
-            // if (!isReload && transitions.Length != 0)
+            if (!isReload && transitions.Length != 0)
             {
                 yield return StartCoroutine(TransitionIn(_activeTransition));
 

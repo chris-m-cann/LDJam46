@@ -1051,7 +1051,7 @@ PrefabInstance:
     - target: {fileID: 1138252583050488866, guid: d3087e5903d4b5d4db20abd4be39672b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 85.7
+      value: 85.69995
       objectReference: {fileID: 0}
     - target: {fileID: 1138252583050488866, guid: d3087e5903d4b5d4db20abd4be39672b,
         type: 3}
@@ -1066,7 +1066,7 @@ PrefabInstance:
     - target: {fileID: 1138252583050488866, guid: d3087e5903d4b5d4db20abd4be39672b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.010314941
+      value: 0.010253906
       objectReference: {fileID: 0}
     - target: {fileID: 1138252583310733266, guid: d3087e5903d4b5d4db20abd4be39672b,
         type: 3}
@@ -4134,6 +4134,9 @@ MonoBehaviour:
   onSceneLoad:
     m_PersistentCalls:
       m_Calls: []
+  image: {fileID: 0}
+  transIdx: -1
+  transitions: []
 --- !u!114 &1705301529
 MonoBehaviour:
   m_ObjectHideFlags: 0

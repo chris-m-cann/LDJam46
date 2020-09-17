@@ -15,6 +15,7 @@ namespace Util.UI
         [SerializeField] private UnityEvent onResume;
 
         private float _timeScaleBefore = 1f;
+        private bool _isPausable = true;
 
         private void Awake()
         {
@@ -29,6 +30,8 @@ namespace Util.UI
 
         public void PauseResume()
         {
+            if (!_isPausable) return;
+
             if (IS_GAME_PAUSED)
             {
                 IS_GAME_PAUSED = false;
@@ -42,6 +45,11 @@ namespace Util.UI
                 Time.timeScale = 0f;
                 onPause.Invoke();
             }
+        }
+
+        public void SetPausable(bool isGamePausable)
+        {
+            _isPausable = isGamePausable;
         }
 
 

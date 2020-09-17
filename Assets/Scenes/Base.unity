@@ -773,6 +773,81 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 851432215}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &900158553
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 900158554}
+  - component: {fileID: 900158556}
+  - component: {fileID: 900158555}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &900158554
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900158553}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1925003522}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &900158555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900158553}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 91faed0301e9f9e4fab77543d4832d02, type: 2}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 7d44d4f33fe026c4e9d30d6a43b0e1ac, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &900158556
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900158553}
+  m_CullTransparentMesh: 0
 --- !u!1001 &1059431826
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2345,7 +2420,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1803212042
 PrefabInstance:
@@ -2530,6 +2605,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialSceneIndex: 2
   loadAdditiveSceneOnAwake: 1
+  onSceneUnloadBegun:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1925003523}
+        m_TargetAssemblyTypeName: Util.UI.PauseMenu, Assembly-CSharp
+        m_MethodName: SetPausable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onSceneUnload:
     m_PersistentCalls:
       m_Calls:
@@ -2545,7 +2635,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onSceneLoad:
+  onSceneLoaded:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 170175376}
@@ -2560,6 +2650,136 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1925003523}
+        m_TargetAssemblyTypeName: Util.UI.PauseMenu, Assembly-CSharp
+        m_MethodName: SetPausable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  image: {fileID: 900158555}
+  transIdx: -1
+  transitions:
+  - texture: {fileID: 2800000, guid: 3b7051baaaaf92d4988e566892b11722, type: 3}
+    duration: 0.6
+    smoothing: 0
+    rotation: 0
+    weight: 0
+  - texture: {fileID: 2800000, guid: 9c7f2dea1446b8442b477d69e921c758, type: 3}
+    duration: 0.6
+    smoothing: 0
+    rotation: 0
+    weight: 0
+  - texture: {fileID: 2800000, guid: 9c7f2dea1446b8442b477d69e921c758, type: 3}
+    duration: 0.6
+    smoothing: 0
+    rotation: 90
+    weight: 0
+  - texture: {fileID: 2800000, guid: 23f26f8ce3f4f494f8111d4651409500, type: 3}
+    duration: 0.6
+    smoothing: 0
+    rotation: 0
+    weight: 0
+  - texture: {fileID: 2800000, guid: 23f26f8ce3f4f494f8111d4651409500, type: 3}
+    duration: 0.6
+    smoothing: 0
+    rotation: -90
+    weight: 0
+  - texture: {fileID: 2800000, guid: 82c8ec1abe1294a4f83ec969d246cb0e, type: 3}
+    duration: 0.6
+    smoothing: 0
+    rotation: 0
+    weight: 0
+  - texture: {fileID: 2800000, guid: ed339b40a227dab48969d17cb6c4abc4, type: 3}
+    duration: 0.6
+    smoothing: 0
+    rotation: 0
+    weight: 0
+  - texture: {fileID: 2800000, guid: ddac19d908eb89e4d996a5b7b29125a3, type: 3}
+    duration: 1
+    smoothing: 0
+    rotation: 90
+    weight: 0
+  - texture: {fileID: 2800000, guid: ddac19d908eb89e4d996a5b7b29125a3, type: 3}
+    duration: 1
+    smoothing: 0
+    rotation: 0
+    weight: 0
+  - texture: {fileID: 2800000, guid: 5dddcb92650d29b4f86bc9e46ad567cd, type: 3}
+    duration: 0.6
+    smoothing: 0
+    rotation: 0
+    weight: 0
+  - texture: {fileID: 2800000, guid: 0505f9f35ff4d5f47b2bd3c56d040e48, type: 3}
+    duration: 0.6
+    smoothing: 0
+    rotation: 0
+    weight: 0
+  - texture: {fileID: 2800000, guid: 0505f9f35ff4d5f47b2bd3c56d040e48, type: 3}
+    duration: 0.6
+    smoothing: 0
+    rotation: 45
+    weight: 0
+  - texture: {fileID: 2800000, guid: 0505f9f35ff4d5f47b2bd3c56d040e48, type: 3}
+    duration: 0.6
+    smoothing: 0
+    rotation: 90
+    weight: 0
+  - texture: {fileID: 2800000, guid: 0505f9f35ff4d5f47b2bd3c56d040e48, type: 3}
+    duration: 0.6
+    smoothing: 0
+    rotation: -45
+    weight: 0
+  - texture: {fileID: 2800000, guid: d338e54d1ddfe034e8092643ead69b25, type: 3}
+    duration: 0.6
+    smoothing: 0.3
+    rotation: 0
+    weight: 0
+  - texture: {fileID: 2800000, guid: d338e54d1ddfe034e8092643ead69b25, type: 3}
+    duration: 0.6
+    smoothing: 0.3
+    rotation: 45
+    weight: 0
+  - texture: {fileID: 2800000, guid: d338e54d1ddfe034e8092643ead69b25, type: 3}
+    duration: 0.6
+    smoothing: 0.3
+    rotation: 90
+    weight: 0
+  - texture: {fileID: 2800000, guid: d338e54d1ddfe034e8092643ead69b25, type: 3}
+    duration: 0.6
+    smoothing: 0.3
+    rotation: -45
+    weight: 0
+  - texture: {fileID: 2800000, guid: 5fefc503ef8cb2d4eb39ea1b218a5f59, type: 3}
+    duration: 0.9
+    smoothing: 0
+    rotation: 0
+    weight: 0
+  - texture: {fileID: 2800000, guid: ca5f514e3ee4c1b4f87b9dd82a9b0411, type: 3}
+    duration: 0.6
+    smoothing: 0
+    rotation: 0
+    weight: 0
+  - texture: {fileID: 2800000, guid: 483fe91d60ce14a40a90327d01438c53, type: 3}
+    duration: 1
+    smoothing: 0.2
+    rotation: 0
+    weight: 0
+  - texture: {fileID: 2800000, guid: 549e2b91b5f599547a94785745317a73, type: 3}
+    duration: 1
+    smoothing: 0
+    rotation: 0
+    weight: 0
+  - texture: {fileID: 2800000, guid: c157c4e3e4083e04db92de94a9487e65, type: 3}
+    duration: 1
+    smoothing: 0.4
+    rotation: 0
+    weight: 0
 --- !u!4 &1901616577
 Transform:
   m_ObjectHideFlags: 0
@@ -2570,7 +2790,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1925003522}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2666,7 +2887,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 999
   m_TargetDisplay: 0
 --- !u!224 &1925003522
 RectTransform:
@@ -2680,8 +2901,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 226086327}
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  - {fileID: 900158554}
+  m_Father: {fileID: 1901616577}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

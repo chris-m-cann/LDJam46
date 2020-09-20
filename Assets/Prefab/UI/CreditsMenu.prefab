@@ -255,7 +255,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1138252582888872498}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -830,9 +830,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'OmegaPixelArt
 
-    DOS88
-
-    chiptunistchippy'
+    DOS88'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 25886b7a0732efb478443be757de81a1, type: 2}
   m_sharedMaterial: {fileID: 712909347742579838, guid: 25886b7a0732efb478443be757de81a1,
@@ -1077,26 +1075,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &1138252584194907189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4340411124124560550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreLayout: 0
-  m_MinWidth: -1
-  m_MinHeight: 20
-  m_PreferredWidth: -1
-  m_PreferredHeight: 20
-  m_FlexibleWidth: -1
-  m_FlexibleHeight: -1
-  m_LayoutPriority: 1
 --- !u!1 &1138252584213467430
 GameObject:
   m_ObjectHideFlags: 0
@@ -1373,7 +1351,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1138252584120586720}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.62795204
+  m_Size: 0.63250154
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1447,7 +1425,7 @@ MonoBehaviour:
 
     Void
 
-    lightUP'
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 25886b7a0732efb478443be757de81a1, type: 2}
   m_sharedMaterial: {fileID: 712909347742579838, guid: 25886b7a0732efb478443be757de81a1,
@@ -1779,6 +1757,26 @@ MonoBehaviour:
   m_MinHeight: 350
   m_PreferredWidth: -1
   m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &1138252584194907189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4340411124124560550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: 20
+  m_PreferredWidth: -1
+  m_PreferredHeight: 20
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
